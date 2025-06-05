@@ -39,13 +39,15 @@ fileInput.addEventListener("click", () => {
 });
 
 processBtn.addEventListener("click", (e) => {
-  const tbody = document.querySelector("#trackTableBody");
-  tbody.innerHTML = "";
   if (fileInput.files.length === 0) {
     fileNameElement.textContent = "No files selected, please upload a file";
     fileNameElement.style.color = "#ff4545";
   } else {
     console.log("Processing files");
+    const tbody = document.querySelector("#trackTableBody");
+    tbody.innerHTML = "";
+    document.querySelector(".summary-section-wrapper").style.display = "none";
+
     const formData = new FormData();
     const frames = document.querySelector("#frameRate").value;
     formData.append("frames", frames);
@@ -60,11 +62,13 @@ processBtn.addEventListener("click", (e) => {
       processBtn.textContent = "Processing";
       fileNameElement.textContent =
         "Processing " + fileNames.length + " file - please wait!";
+      fileInput.value = "";
     } else if (fileInput.files.length > 1) {
       fileNameElement.style.color = "#999";
       processBtn.textContent = "Processing";
       fileNameElement.textContent =
         "Processing " + fileNames.length + " files - please wait!";
+      fileInput.value = "";
     }
   }
 });
