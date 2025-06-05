@@ -39,6 +39,8 @@ fileInput.addEventListener("click", () => {
 });
 
 processBtn.addEventListener("click", (e) => {
+  const tbody = document.querySelector("#trackTableBody");
+  tbody.innerHTML = "";
   if (fileInput.files.length === 0) {
     fileNameElement.textContent = "No files selected, please upload a file";
     fileNameElement.style.color = "#ff4545";
