@@ -1,4 +1,10 @@
-const apiBase = "https://cueref-backend-1.onrender.com";
+// const apiBase = "https://cueref-backend-1.onrender.com";
+const isLocalhost = ["localhost", "127.0.0.1"].includes(
+  window.location.hostname
+);
+const apiBase = isLocalhost
+  ? "http://localhost:8000"
+  : "https://cueref-backend-1.onrender.com";
 
 const fileInput = document.querySelector("#fileInput");
 const endPoint = `${apiBase}/upload-info?upload_id=`;
