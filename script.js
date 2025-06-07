@@ -134,7 +134,9 @@ function fetch_songs(uploadId) {
             <td>${song.title || ""}</td>
             <td>${capitalizeWords(song.library) || ""}</td>
             <td class="show-desktop">${song.composer || ""}</td>
-            <td class="show-tablet">${formatTime(song.duration) || ""}</td>
+            <!-- <td class="show-tablet">${
+              formatTime(song.duration) || ""
+            }</td> -->
             <td class="show-desktop">${song.bpm || ""}</td>
             <td class="show-desktop">${song.mix || ""}</td>
             <td>${formatTime(song.total_time_played) || ""}</td>
