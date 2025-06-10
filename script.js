@@ -63,19 +63,26 @@ processBtn.addEventListener("click", (e) => {
     }
     sendFormData(formData);
 
-    if (fileInput.files.length === 1) {
+    if (fileInput.files.length > 0) {
       fileNameElement.style.color = "#999";
-      processBtn.textContent = "Processing";
-      fileNameElement.textContent =
-        "Processing " + fileNames.length + " file - please wait!";
-      fileInput.value = "";
-    } else if (fileInput.files.length > 1) {
-      fileNameElement.style.color = "#999";
-      processBtn.textContent = "Processing";
-      fileNameElement.textContent =
-        "Processing " + fileNames.length + " files - please wait!";
       fileInput.value = "";
     }
+
+    // if (fileInput.files.length === 1) {
+    //   fileNameElement.style.color = "#999";
+    //   processBtn.textContent = "Processing";
+    //   fileNameElement.textContent =
+    //     "Processing " + fileNames.length + " file - please wait!";
+    //   fileInput.value = "";
+    // } else if (fileInput.files.length > 1) {
+    //   fileNameElement.style.color = "#999";
+    //   processBtn.textContent = "Processing";
+    //   fileNameElement.textContent =
+    //     "Processing " +
+    //     fileNames.length +
+    //     " files - please wait! Note that this may take several minutes depending on file size.";
+    //   fileInput.value = "";
+    // }
   }
 });
 
@@ -87,6 +94,14 @@ function sendFormData(data) {
     .then((response) => response.json())
     .then((data) => {
       console.log("Upload successful:", data);
+      let maxTimeout = 600000;
+      if (data.song_count) {
+        const estimatedSeconds = Math.max(120, data.song_count * 2.5);
+        maxTimeout = estimatedSeconds * 1000;
+        const estimatedMinutes = Math.ceil(estimatedSeconds / 60);
+        fileNameElement.textContent = `Processing ${data.song_count} songs - estimated time: ${estimatedMinutes} minutes on our development server during beta testing`;
+      }
+
       if (data && data.upload_id) {
         console.log(`Stating pollAPI for upload ID: ${data.upload_id}`);
         const startPolling = async () => {
@@ -94,9 +109,13 @@ function sendFormData(data) {
             endPoint,
             "completed",
             1000,
-            60000,
+            maxTimeout,
             data.upload_id
           );
+          console.log("About to call updateSummarySection with:", result);
+          if (result === null) {
+            console.log("WARNING: Data is null - polling timed out!");
+          }
           console.log("Update summary section with result:", result);
           updateSummarySection(result);
           fetch_songs(data.upload_id);
