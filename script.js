@@ -65,6 +65,7 @@ processBtn.addEventListener("click", (e) => {
 
     if (fileInput.files.length > 0) {
       fileNameElement.style.color = "#999";
+      processBtn.textContent = "Processing";
       fileInput.value = "";
     }
 
@@ -99,6 +100,7 @@ function sendFormData(data) {
         const estimatedSeconds = Math.max(120, data.song_count * 2.5);
         maxTimeout = estimatedSeconds * 1000;
         const estimatedMinutes = Math.ceil(estimatedSeconds / 60);
+        fileNameElement.style.color = "#999";
         fileNameElement.textContent = `Processing ${data.song_count} songs - estimated time: ${estimatedMinutes} minutes on our development server during beta testing`;
       }
 
