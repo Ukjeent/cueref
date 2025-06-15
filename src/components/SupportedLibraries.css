@@ -1,0 +1,76 @@
+.library-grid {
+  justify-self: center;
+  border: 2px solid #333;
+  border-radius: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+  padding: 40px 40px;
+}
+
+.library-card:hover {
+  border: 2px solid white;
+  background-color: grey;
+  transition: ease-in-out 0.1s;
+}
+
+.library-card {
+  width: 250px;
+  height: 180px;
+  background: #1e1e1e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  transition: all 0.5s ease;
+  border: 1px solid white;
+  margin: 20px 10px;
+  border-radius: 15px;
+}
+
+.library-card__title {
+  color: white;
+  font-size: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.library-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    transparent 30%,
+    rgba(0, 255, 255, 0.3)
+  );
+  transform: rotate(-45deg);
+  transition: all 0.7s ease;
+  opacity: 0;
+}
+
+.library-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+  background-color: black;
+}
+
+.library-card:hover::before {
+  opacity: 1;
+  transform: rotate(-45deg) translateY(100%);
+}
+
+.library-card__note {
+  font-size: 1rem;
+  text-align: center;
+  padding-top: 1px;
+  color: grey;
+}

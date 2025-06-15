@@ -1,0 +1,17 @@
+.button {
+  padding: 0.5rem 1rem;
+  background-color: #008acc;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+#downloadButton {
+  margin-top: 1rem;
+}
+
+.button:hover {
+  background-color: #005fa3;
+}

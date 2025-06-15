@@ -1,0 +1,17 @@
+.summary-section-wrapper {
+  /* display: none; */
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.summary-section {
+  display: flex;
+  border: 2px solid #333;
+  border-radius: 4px;
+  padding: 0.3rem;
+  width: auto;
+}
+
+.summary-section p {
+  margin: 5px;
+}
