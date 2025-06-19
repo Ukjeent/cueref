@@ -67,7 +67,6 @@ function TableSection() {
         <tbody id="trackTableBody"></tbody>
         {trackTableBody}
       </table>
-      <button onClick={addTracks}>Test</button>
     </section>
   );
 }

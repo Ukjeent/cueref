@@ -9,11 +9,12 @@ function Header() {
     <Navbar
       expand="lg"
       className="bg-body-tertiary"
-      bg="dark"
-      data-bs-theme="dark"
+      // bg="dark"
+      // data-bs-theme="dark"
       // sticky="top" // Sticky navbar
     >
-      <Container>
+      <Container    
+>
         <Navbar.Brand href="#home">
           <img
             src="/images/cueref_logo_coral_btn.svg"

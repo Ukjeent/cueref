@@ -7,7 +7,7 @@
 .custom-file-label {
   display: inline-block;
   padding: 0.5rem 1rem;
-  background-color: #444;
+  background-color: #999;
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
@@ -18,11 +18,16 @@
   background-color: #666;
 }
 
+.upload-section {
+    padding: 2rem 3rem 1rem 3rem;
+    /* background-color: rgba(251,113,133, 0.1); */
+}
+
 .file-row {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 select {
@@ -33,46 +38,29 @@ select {
 }
 
 select#frameRate {
-  background-color: #008acc;
+  background-color: rgba(251,113,133, 0.8);
   color: #fff;
   width: 90px;
   text-align: center;
   height: 25px;
   border-radius: 4px;
   border: None;
-  margin-left: 5px;
+  margin-left: 10px;
   transition: background 0.2s ease;
 }
 
 select#frameRate:hover {
-  background-color: #005fa3;
+  background-color: rgba(251,113,133, 0.5);
+}
+select#frameRate:focus {
+  outline: none;
 }
 
-/* Buttons */
-.button {
-  padding: 0.5rem 1rem;
-  background-color: #008acc;
-  color: #ffffff;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background 0.2s ease;
-}
-
-.button:hover {
-  background-color: #005fa3;
-}
-
-.file-upload-info {
-  display: flex;
-  gap: 1rem;
-}
 
 .file-upload-info {
   display: flex;
   flex-direction: column;
   gap: 0rem;
-  margin-top: 1.5rem;
 }
 
 .processing-info {
@@ -90,7 +78,7 @@ select#frameRate:hover {
   width: 120px;
   height: 22px;
   border-radius: 20px;
-  color: #008acc;
+  color: rgba(251,113,133,255);
   border: 2px solid;
   position: relative;
 }

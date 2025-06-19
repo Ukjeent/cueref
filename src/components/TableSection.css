@@ -1,23 +1,30 @@
 /* Table styles */
+
+.table-section {
+  padding: 0 3rem 0 3rem;
+}
 .track-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
-  background-color: #2a2a2a;
   box-shadow: 0 0 4px rgba(255, 255, 255, 0.05);
+  background-color: #999;
+  border-radius: 4px;
+  font-style: normal;
+
 }
+
 
 .track-table th,
 .track-table td {
   padding: 0.75rem;
-  border: 1px solid #444;
   text-align: left;
   color: #ddd;
 }
 
 .track-table th {
-  background-color: #333;
   color: #fff;
+  font-weight: 400;
 }
 
 .show-tablet,

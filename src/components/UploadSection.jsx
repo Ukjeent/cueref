@@ -199,7 +199,7 @@ function UploadSection() {
     <div className="upload-section">
       <div className="file-row">
         <label htmlFor="fileInput" className="custom-file-label">
-          📂 Upload EDL files
+          Upload EDL files
         </label>
         <input
           ref={fileInputRef}
@@ -219,6 +219,7 @@ function UploadSection() {
           Process
         </button>
       </div>
+      
       <div className="file-upload-info">
         <div className="processing-info">
           <p id="fileNameDisplay" className="file-name">

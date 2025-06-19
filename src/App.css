@@ -1,5 +1,29 @@
 body {
-  background-color: #1e1e1e;
-  color: white;
+  background-color: white;
+  color: black;
   font-family: system-ui, sans-serif;
+}
+
+/* Buttons */
+.button {
+  padding: 0.5rem 1rem;
+  background-color: rgba(251,113,133, 0.8);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.button:hover {
+  background-color: rgba(251,113,133, 0.5);
+}
+/* 
+.result-section {
+  background-color: rgba(251,113,133, 0.1);
+} */
+
+.upload-result-container {
+  background-color: rgba(251,113,133, 0.1);
+
 }

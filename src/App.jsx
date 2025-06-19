@@ -8,17 +8,23 @@ import DownloadSection from "./components/DownloadSection";
 import SupportedLibraries from "./components/SupportedLibraries";
 import SummarySection from "./components/SummarySection";
 import TableSection from "./components/TableSection";
+import WelcomeBanner from "./components/welcomeBanner";
 
 function App() {
   return (
     <>
       <Header />
-      <main style={{ padding: " 0 2rem" }}>
-        <h1>Welcome to CueRef</h1>
+        <main>
+        <WelcomeBanner />
+        <div className="upload-result-container">
         <UploadSection />
+        {/* <div className="result-section" style={{ display: "none" }}> */}
+        <div className="result-section" >
         <SummarySection />
         <TableSection />
         <DownloadSection />
+        </div>
+        </div>
         <SupportedLibraries />
       </main>
     </>
