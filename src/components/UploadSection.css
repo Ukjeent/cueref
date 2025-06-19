@@ -62,3 +62,51 @@ select#frameRate:hover {
 .button:hover {
   background-color: #005fa3;
 }
+
+.file-upload-info {
+  display: flex;
+  gap: 1rem;
+}
+
+.file-upload-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+  margin-top: 1.5rem;
+}
+
+.processing-info {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#songProcessingDisplay {
+  color: #999;
+  font-style: italic;
+  margin-top: -12px;
+}
+
+.loader {
+  width: 120px;
+  height: 22px;
+  border-radius: 20px;
+  color: #008acc;
+  border: 2px solid;
+  position: relative;
+}
+
+.loader::before {
+  content: "";
+  position: absolute;
+  margin: 2px;
+  inset: 0 100% 0 0;
+  border-radius: inherit;
+  background: currentColor;
+  /* animation: l6 20s 1 forwards; */
+  animation: l6 var(--animation-duration, 60s) 1 forwards;
+}
+@keyframes l6 {
+  100% {
+    inset: 0;
+  }
+}

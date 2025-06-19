@@ -1,7 +1,7 @@
 .summary-section-wrapper {
   /* display: none; */
   display: flex;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 
 .summary-section {

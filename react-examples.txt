@@ -1,0 +1,97 @@
+import { useState, useEffect } from "react";
+
+function ApiExample() {
+  // State for storing data
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // API call function
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/songs?upload_id=123");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const result = await response.json();
+      setData(result);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Call API when component mounts
+  useEffect(() => {
+    fetchData();
+  }, []); // Empty dependency array = run once on mount
+
+  // Handle form submission
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("frames", "25");
+    // Add files here
+
+    try {
+      setLoading(true);
+      const response = await fetch("/process-edl", {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.json();
+
+      // After successful upload, fetch new data
+      if (result.upload_id) {
+        fetchData();
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Render the component
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <button type="submit" disabled={loading}>
+          {loading ? "Processing..." : "Upload"}
+        </button>
+      </form>
+
+      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+
+      {loading && <p>Loading...</p>}
+
+      {data && (
+        <div>
+          <h3>Results:</h3>
+          {data.map((item, index) => (
+            <div key={index}>
+              <p>
+                {item.title} - {item.library}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default ApiExample;
+
+
+// Dynamic class names
+const [isActive, setIsActive] = useState(false);
+
+<button className={isActive ? "button active" : "button"}>
+// or
+<button className={`button ${isActive ? 'active' : ''}`}></button>
