@@ -1,31 +1,32 @@
 import "./SummarySection.css";
+import { useState, useEffect } from "react";
 
-function SummarySection() {
+function SummarySection({ summaryData }) {
   return (
     <div className="summary-section-wrapper">
       <section className="summary-section">
         <p id="fileCount" className="file-count">
-          Files loaded: 0
+          Files loaded: {summaryData?.files || 0}
         </p>
         <p className="divider">|</p>
 
         <p id="matchedCuesCount" className="matched-cues-count">
-          Matched cues: 0
+          Matched cues: {summaryData?.matchedCues || 0}
         </p>
         <p className="divider">|</p>
 
         <p id="unmatchedCuesCount" className="unmatched-cues-count">
-          Unmatched cues: 0
+          Unmatched cues: {summaryData?.unmatchedCues || 0}
         </p>
         <p className="divider">|</p>
 
         <p id="libraryCount" className="library-count">
-          Libraries: 0
+          Libraries: {summaryData?.libraries || 0}
         </p>
         <p className="divider">|</p>
 
         <p id="frames-display" className="frames-display">
-          Frames: fps
+          Frames: {summaryData?.frames || 0} fps
         </p>
       </section>
     </div>

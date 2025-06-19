@@ -1,6 +1,6 @@
 import "./TableSection.css";
 import { useAccordionButton } from "react-bootstrap";
-import { useState } from "../App.jsx";
+import { useState } from "react";
 
 function TableSection() {
   const [trackTableBody, setTrackTableBody] = useState("");
