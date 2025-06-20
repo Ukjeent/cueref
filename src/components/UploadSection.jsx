@@ -97,9 +97,12 @@ function UploadSection({
 
   return (
     <div className="upload-section">
+      <h3 style={{ marginTop: "-15px", marginBottom: "10px" }}>
+        Upload EDL Files
+      </h3>
       <div className="file-row">
         <label htmlFor="fileInput" className="custom-file-label">
-          Upload EDL files
+          Select files
         </label>
         <input
           ref={fileInputRef}
@@ -110,12 +113,7 @@ function UploadSection({
           accept=".edl"
           multiple
         />
-        <button
-          onClick={handleClick}
-          id="processButton"
-          className="button"
-          // className={`button ${isProcessing ? "loader-text" : ""}`}
-        >
+        <button onClick={handleClick} id="processButton" className="button">
           Process
         </button>
       </div>
@@ -134,7 +132,10 @@ function UploadSection({
       </select>
       <div className="file-upload-info">
         <div className="processing-info">
-          <p id="fileNameDisplay" className="file-name">
+          <p
+            id="fileNameDisplay"
+            className={`processing-text ${filenames !== "" ? "show" : ""}`}
+          >
             {filenames}
           </p>
           {isProcessing && (
@@ -147,13 +148,14 @@ function UploadSection({
           )}
         </div>
 
-        {isProcessing && songCountReady ? (
-          <p id="songProcessingDisplay" className="file-name">
-            {processingInfo}
-          </p>
-        ) : (
-          ""
-        )}
+        <p
+          id="songProcessingDisplay"
+          className={`processing-text ${
+            isProcessing && songCountReady ? "show" : ""
+          }`}
+        >
+          {processingInfo}
+        </p>
       </div>
     </div>
   );

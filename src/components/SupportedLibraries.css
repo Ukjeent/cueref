@@ -1,20 +1,18 @@
 .library-wrapper {
-    display: flex;
-    flex-direction: column;
-    margin-top: 2rem;
-    /* background-color: rgba(251,113,133, 0.1); */
-    padding: 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  /* background-color: rgba(251,113,133, 0.1); */
+  padding: 1rem 3rem;
 }
 
 .library-grid {
-    justify-self: center;
-    /* border: 2px solid #333; */
-    border-radius: 4px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 2rem;
-    /* justify-content: center; */
-    /* margin-top: 2rem; */
+  justify-self: center;
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+  /* justify-content: center; */
 }
 
 .library-card:hover {
@@ -25,7 +23,7 @@
 .library-card {
   width: 150px;
   height: 120px;
-  background: rgba(251,113,133, 0.5);
+  background: rgba(251, 113, 133, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,7 +62,7 @@
 
 .library-card:hover {
   transform: scale(1.015);
-  background: rgba(251,113,133, 0.8);
+  background: rgba(251, 113, 133, 0.8);
 }
 
 .library-card:hover::before {
@@ -77,4 +75,10 @@
   text-align: center;
   padding-top: 1px;
   color: grey;
+}
+
+@media (min-width: 768px) {
+  .library-grid {
+    gap: 0 2rem;
+  }
 }

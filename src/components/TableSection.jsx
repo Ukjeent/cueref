@@ -65,6 +65,7 @@ function TableSection() {
           </tr>
         </thead>
         <tbody id="trackTableBody"></tbody>
+
         {trackTableBody}
       </table>
     </section>

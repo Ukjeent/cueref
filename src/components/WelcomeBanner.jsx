@@ -1,6 +1,6 @@
 import "./WelcomeBanner.css";
 
-function WelcomeBanner({ handleShowUploadSectionClick }) {
+function WelcomeBanner({ handleShowUploadSectionClick, showUploadSection }) {
   return (
     <div className="welcome-banner">
       <div
@@ -14,11 +14,16 @@ function WelcomeBanner({ handleShowUploadSectionClick }) {
           extract track information from EDL files and match it with metadata
           from various music libraries.
         </p>
-        <button onClick={handleShowUploadSectionClick} className="button">
+        <button
+          onClick={handleShowUploadSectionClick}
+          // className={`button ${showUploadSection ? "hide" : ""}`}
+          className={"button"}
+        >
           Try it out!
         </button>
       </div>
       <img
+        className="welcome-banner-image"
         src="/images/Untitled.png"
         alt="test image"
         style={{ height: "350px" }}

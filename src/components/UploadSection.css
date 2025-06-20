@@ -74,6 +74,13 @@ select#frameRate:focus {
   margin-top: -12px;
 }
 
+.processing-text {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 1s ease, opacity 0.3s ease;
+}
+
 .loader {
   width: 120px;
   height: 22px;

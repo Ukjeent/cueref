@@ -1,10 +1,12 @@
 import "./SummarySection.css";
 import { useState, useEffect } from "react";
 
-function SummarySection({ summaryData }) {
+function SummarySection({ processingReady, summaryData }) {
   return (
-    <div className="summary-section-wrapper">
-      <section className="summary-section">
+    <div className={`summary-section-wrapper`}>
+      <section
+        className={`summary-section ${processingReady ? "show-summary" : ""}`}
+      >
         <p id="fileCount" className="file-count">
           Files loaded: {summaryData?.files || 0}
         </p>

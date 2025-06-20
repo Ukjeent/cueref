@@ -8,3 +8,13 @@
 .welcome-banner-text {
   max-width: 40%;
 }
+
+.welcome-banner-image {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .welcome-banner-image {
+    display: block;
+  }
+}

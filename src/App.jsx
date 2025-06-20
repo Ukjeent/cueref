@@ -13,6 +13,7 @@ import useFormData from "./hooks/useSendFormData";
 
 function App() {
   const [showUploadSection, setShowUploadSection] = useState(false);
+
   const {
     sendFormData,
     isProcessing,
@@ -34,8 +35,13 @@ function App() {
       <main>
         <WelcomeBanner
           handleShowUploadSectionClick={handleShowUploadSectionClick}
+          showUploadSection={showUploadSection}
         />
-        <div className="upload-result-container">
+        <div
+          className={`
+        upload-container
+          ${showUploadSection ? "show" : ""}`}
+        >
           {showUploadSection && (
             <UploadSection
               sendFormData={sendFormData}
@@ -46,16 +52,17 @@ function App() {
               processingReady={processingReady}
             />
           )}
-          {processingReady && (
-            <div className="result-section">
-              <SummarySection summaryData={summaryData} />
-              <TableSection
-                songData={songData}
-                processingReady={processingReady}
-              />
-              <DownloadSection />
-            </div>
-          )}
+          <div className={`result-section ${processingReady ? "show" : ""}`}>
+            <SummarySection
+              summaryData={summaryData}
+              processingReady={processingReady}
+            />
+            <TableSection
+              songData={songData}
+              processingReady={processingReady}
+            />
+            <DownloadSection />
+          </div>
         </div>
         <SupportedLibraries />
       </main>

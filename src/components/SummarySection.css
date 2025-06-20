@@ -1,9 +1,7 @@
 .summary-section-wrapper {
-  /* display: none; */
   display: flex;
   margin: 1rem 0;
   padding: 0 3rem 0 3rem;
-
 }
 
 .summary-section {
