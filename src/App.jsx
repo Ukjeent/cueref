@@ -8,7 +8,7 @@ import DownloadSection from "./components/DownloadSection";
 import SupportedLibraries from "./components/SupportedLibraries";
 import SummarySection from "./components/SummarySection";
 import TableSection from "./components/TableSection";
-import WelcomeBanner from "./components/welcomeBanner";
+import WelcomeBanner from "./components/WelcomeBanner";
 import useFormData from "./hooks/useSendFormData";
 
 function App() {
