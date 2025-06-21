@@ -26,6 +26,7 @@
   .summary-divider.show-small-tablet {
     display: flex;
   }
+}
 
 @media (min-width: 768px) {
   .summary-divider.show-tablet {
