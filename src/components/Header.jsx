@@ -4,6 +4,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import logo from "/images/cueref_logo_coral_btn.svg";
+
 function Header() {
   return (
     <Navbar
@@ -15,11 +17,7 @@ function Header() {
     >
       <Container fluid>
         <Navbar.Brand href="#home">
-          <img
-            src="/images/cueref_logo_coral_btn.svg"
-            alt="CueRef Logo"
-            style={{ height: "60px" }}
-          />
+          <img src={logo} alt="CueRef Logo" style={{ height: "60px" }} />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Offcanvas id="basic-navbar-nav" placement="end">

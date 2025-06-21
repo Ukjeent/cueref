@@ -1,4 +1,5 @@
 import "./WelcomeBanner.css";
+import welcomeImage from "/images/Untitled.png";
 
 function WelcomeBanner({ handleShowUploadSectionClick, showUploadSection }) {
   return (
@@ -24,7 +25,7 @@ function WelcomeBanner({ handleShowUploadSectionClick, showUploadSection }) {
       </div>
       <img
         className="welcome-banner-image"
-        src="/images/Untitled.png"
+        src={welcomeImage}
         alt="test image"
         style={{ height: "350px" }}
       />
