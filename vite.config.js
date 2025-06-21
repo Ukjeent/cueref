@@ -11,5 +11,5 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/cueref-react/", // Change this to just '/'
+  base: "/", // Change from '/cueref-react/' to just '/'
 });
