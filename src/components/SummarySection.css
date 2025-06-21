@@ -22,13 +22,13 @@
 }
 
 @media (min-width: 768px) {
-  .show-tablet {
+  .summary-divider.show-tablet {
     display: flex;
   }
 }
 
 @media (min-width: 992px) {
-  .show-desktop {
+  .summary-divider.show-desktop {
     display: flex;
   }
 }
