@@ -38,12 +38,12 @@ body {
 
 .processing-text.show,
 .upload-container.show {
-  max-height: 500px;
+  max-height: 4000px;
   opacity: 1;
 }
 
 .result-section.show {
-  max-height: 3000px;
+  max-height: 4000px;
   opacity: 1;
 }
 

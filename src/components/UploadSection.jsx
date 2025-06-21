@@ -1,5 +1,5 @@
 import "./UploadSection.css";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, use } from "react";
 
 function UploadSection({
   sendFormData,
@@ -26,11 +26,25 @@ function UploadSection({
       setEstimatedMinutes(estimatedMinutes);
       setFilenames(`Processing ${fileCount} file(s) and ${songCount} songs`);
       setProcessingInfo(
-        `Estimated time: ${estimatedMinutes} minutes on our development server during beta testing`
+        `Estimated time: ${
+          estimatedSeconds >= 60
+            ? estimatedMinutes + " minutes"
+            : estimatedSeconds + " seconds"
+        } on our development server during beta testing`
       );
       setSongCountReady(true);
     }
   }, [songCount, isProcessing, estimatedSeconds, estimatedMinutes, fileCount]);
+
+  useEffect(() => {
+    if (processingReady) {
+      setAnimationTime(1);
+      setFilenames(`Processed ${fileCount} file(s) and ${songCount} songs`);
+      setProcessingInfo(
+        "Processing complete! You can now download the results."
+      );
+    }
+  }, [processingReady]);
 
   const createFormData = (files) => {
     const formData = new FormData();

@@ -2,36 +2,9 @@ import "./TableSection.css";
 import { useAccordionButton } from "react-bootstrap";
 import { useState } from "react";
 
-function TableSection() {
+function TableSection({ songData, processingReady }) {
   const [trackTableBody, setTrackTableBody] = useState("");
   const [fileName, setFileName] = useState("fileName");
-  const [songs, setSongs] = useState(0);
-  const [title, setTitle] = useState("title");
-  const [library, setLibrary] = useState("library");
-  const [composer, setComposer] = useState("composer");
-  const [bpm, setBpm] = useState(0);
-  const [mix, setMix] = useState("mix");
-  const [totalTimePlayed, setTotalTimePlayed] = useState(0);
-
-  const addTracks = () => {
-    const tbody = document.querySelector("#trackTableBody");
-    tbody.innerHTML = "";
-
-    // for (let i = 0; i < 1; i++) {
-    const row = document.createElement("tr");
-    row.innerHTML = `<td class="show-tablet">Filename</td>
-            <td>Songs</td>
-            <td>Title</td>
-            <td>{capitalizeWords("library")}</td>
-            <td class="show-desktop">Composer</td>
-            <td class="show-desktop">Bpm</td>
-            <td class="show-desktop">Mix</td>
-            <td>{formatTime("360")}</td>`;
-    tbody.appendChild(row);
-    // }
-
-    setTrackTableBody(tbody);
-  };
 
   const capitalizeWords = (str) =>
     str
@@ -64,9 +37,26 @@ function TableSection() {
             <th>Playtime</th>
           </tr>
         </thead>
-        <tbody id="trackTableBody"></tbody>
-
-        {trackTableBody}
+        <tbody id="trackTableBody">
+          {songData ? (
+            songData.map((songData, index) => (
+              <tr key={index} className="song-rows">
+                <td className="show-tablet">{songData.file_name}</td>
+                <td>{songData.songs}</td>
+                <td>{songData.title}</td>
+                <td>{capitalizeWords(songData.library)}</td>
+                <td className="show-desktop">{songData.composer}</td>
+                <td className="show-desktop">{songData.bpm}</td>
+                <td className="show-desktop">{songData.mix}</td>
+                <td>{formatTime(songData.total_time_played)}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td></td>
+            </tr>
+          )}
+        </tbody>
       </table>
     </section>
   );

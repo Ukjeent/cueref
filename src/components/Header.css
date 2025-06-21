@@ -8,10 +8,9 @@
   margin-left: auto;
 }
 
-.container {
-  padding: 0;
+.navbar {
+  padding: 0 2rem 0 2rem;
 }
-
 .nav-link {
   color: black;
   text-decoration: none;
@@ -21,11 +20,6 @@
 
 .nav-link:hover {
   text-decoration: underline;
-}
-
-.container-fluid {
-  display: flex;
-  align-items: space-between;
 }
 
 ul {

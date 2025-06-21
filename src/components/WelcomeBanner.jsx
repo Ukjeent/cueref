@@ -4,7 +4,7 @@ function WelcomeBanner({ handleShowUploadSectionClick, showUploadSection }) {
   return (
     <div className="welcome-banner">
       <div
-        style={{ fontSize: "1.2rem", padding: "1rem 2rem 1rem 2rem" }}
+        style={{ fontSize: "1.2rem", padding: "1rem 1rem 1rem 1rem" }}
         className="welcome-banner-text"
       >
         <h1>Welcome to CueRef</h1>

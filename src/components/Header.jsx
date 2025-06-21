@@ -13,8 +13,7 @@ function Header() {
       // data-bs-theme="dark"
       // sticky="top" // Sticky navbar
     >
-      <Container    
->
+      <Container fluid>
         <Navbar.Brand href="#home">
           <img
             src="/images/cueref_logo_coral_btn.svg"
