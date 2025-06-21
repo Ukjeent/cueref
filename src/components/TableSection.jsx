@@ -39,18 +39,26 @@ function TableSection({ songData, processingReady }) {
         </thead>
         <tbody id="trackTableBody">
           {songData ? (
-            songData.map((songData, index) => (
-              <tr key={index} className="song-rows">
-                <td className="show-tablet">{songData.file_name}</td>
-                <td className="show-tablet">{songData.songs}</td>
-                <td>{songData.title}</td>
-                <td>{capitalizeWords(songData.library)}</td>
-                <td className="show-desktop">{songData.composer}</td>
-                <td className="show-desktop">{songData.bpm}</td>
-                <td className="show-desktop">{songData.mix}</td>
-                <td>{formatTime(songData.total_time_played)}</td>
-              </tr>
-            ))
+            songData.map((song, index) =>
+              song.warning ? (
+                <tr key={index} className="song-rows warning">
+                  <td className="show-tablet">{song.file_name}</td>
+                  <td className="show-tablet">{song.songs}</td>
+                  <td colSpan={6}>Error: {song.warning}</td>
+                </tr>
+              ) : (
+                <tr key={index} className="song-rows">
+                  <td className="show-tablet">{song.file_name}</td>
+                  <td className="show-tablet">{song.songs}</td>
+                  <td>{song.title}</td>
+                  <td>{song.library ? capitalizeWords(song.library) : ""}</td>
+                  <td className="show-desktop">{song.composer}</td>
+                  <td className="show-desktop">{song.bpm}</td>
+                  <td className="show-desktop">{song.mix}</td>
+                  <td>{formatTime(song.total_time_played)}</td>
+                </tr>
+              )
+            )
           ) : (
             <tr>
               <td></td>

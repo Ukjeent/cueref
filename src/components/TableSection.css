@@ -40,9 +40,13 @@
   font-weight: 400;
   background-color: #999;
 }
-.track-table td {
+.track-table tr {
   background-color: #ffffff;
   color: black;
+}
+
+tr.warning {
+  color: #ff0f0f;
 }
 
 tr.song-rows {

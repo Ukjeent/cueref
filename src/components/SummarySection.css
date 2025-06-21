@@ -16,10 +16,16 @@
   margin: 5px;
 }
 
+.show-small-tablet,
 .show-tablet,
 .show-desktop {
   display: none;
 }
+
+@media (min-width: 640px) {
+  .summary-divider.show-small-tablet {
+    display: flex;
+  }
 
 @media (min-width: 768px) {
   .summary-divider.show-tablet {

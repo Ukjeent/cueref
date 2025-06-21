@@ -16,13 +16,13 @@ function SummarySection({ processingReady, summaryData }) {
           Matched cues: {summaryData?.matchedCues || 0}
         </p>
         <p className="divider">|</p>
-        <div className="summary-divider show-desktop">
+        <div className="summary-divider show-tablet">
           <p id="unmatchedCuesCount" className="unmatched-cues-count">
             Unmatched cues: {summaryData?.unmatchedCues || 0}
           </p>
           <p className="divider">|</p>
         </div>
-        <div className="summary-divider show-desktop">
+        <div className="summary-divider show-small-tablet">
           <p id="libraryCount" className="library-count">
             Libraries: {summaryData?.libraries || 0}
           </p>
