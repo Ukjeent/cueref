@@ -16,16 +16,18 @@ function SummarySection({ processingReady, summaryData }) {
           Matched cues: {summaryData?.matchedCues || 0}
         </p>
         <p className="divider">|</p>
-
-        <p id="unmatchedCuesCount" className="unmatched-cues-count">
-          Unmatched cues: {summaryData?.unmatchedCues || 0}
-        </p>
-        <p className="divider">|</p>
-
-        <p id="libraryCount" className="library-count">
-          Libraries: {summaryData?.libraries || 0}
-        </p>
-        <p className="divider">|</p>
+        <div className="show-desktop">
+          <p id="unmatchedCuesCount" className="unmatched-cues-count">
+            Unmatched cues: {summaryData?.unmatchedCues || 0}
+          </p>
+          <p className="divider">|</p>
+        </div>
+        <div className="show-desktop">
+          <p id="libraryCount" className="library-count">
+            Libraries: {summaryData?.libraries || 0}
+          </p>
+          <p className="divider">|</p>
+        </div>
 
         <p id="frames-display" className="frames-display">
           Frames: {summaryData?.frames || 0} fps

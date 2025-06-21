@@ -28,7 +28,7 @@ function TableSection({ songData, processingReady }) {
         <thead>
           <tr>
             <th className="show-tablet">File</th>
-            <th>Songs</th>
+            <th className="show-tablet">Songs</th>
             <th>Title</th>
             <th>Library</th>
             <th className="show-desktop">Composer</th>
@@ -42,7 +42,7 @@ function TableSection({ songData, processingReady }) {
             songData.map((songData, index) => (
               <tr key={index} className="song-rows">
                 <td className="show-tablet">{songData.file_name}</td>
-                <td>{songData.songs}</td>
+                <td className="show-tablet">{songData.songs}</td>
                 <td>{songData.title}</td>
                 <td>{capitalizeWords(songData.library)}</td>
                 <td className="show-desktop">{songData.composer}</td>

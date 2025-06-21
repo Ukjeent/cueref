@@ -29,7 +29,3 @@ ul {
 .navbar-expand-lg .offcanvas {
   flex-grow: 0;
 }
-
-div#basic-navbar-nav {
-  background-color: #1e1e1e;
-}

@@ -8,20 +8,14 @@ import logo from "/images/cueref_logo_coral_btn.svg";
 
 function Header() {
   return (
-    <Navbar
-      expand="lg"
-      className="bg-body-tertiary"
-      // bg="dark"
-      // data-bs-theme="dark"
-      // sticky="top" // Sticky navbar
-    >
+    <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
         <Navbar.Brand href="#home">
           <img src={logo} alt="CueRef Logo" style={{ height: "60px" }} />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Offcanvas id="basic-navbar-nav" placement="end">
-          <Offcanvas.Header data-bs-theme="dark" closeButton></Offcanvas.Header>
+          <Offcanvas.Header closeButton></Offcanvas.Header>
           <Nav className="me-auto">
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link disabled href="#link">
