@@ -39,6 +39,7 @@ select {
 
 select#frameRate {
   background-color: rgba(251, 113, 133, 0.8);
+  /* background-color: #999; */
   color: #fff;
   width: 90px;
   text-align: center;
@@ -52,6 +53,7 @@ select#frameRate {
 
 select#frameRate:hover {
   background-color: rgba(251, 113, 133, 0.5);
+  /* background-color: #666; */
 }
 select#frameRate:focus {
   outline: none;
@@ -85,7 +87,7 @@ select#frameRate:focus {
   width: 120px;
   height: 22px;
   border-radius: 20px;
-  color: rgba(251, 113, 133, 255);
+  color: rgba(251, 113, 133, 0.8);
   border: 2px solid;
   position: relative;
 }

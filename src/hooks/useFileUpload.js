@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 
 
-function useFileUpload({sendFormData, data, setData, isProcessing, setFilenames, frames}) {
+function useFileUpload({sendFormData, data, setData, isProcessing, setIsProcessing, setFilenames, frames}) {
 
     
     const fileInputRef = useRef(null);
@@ -48,22 +48,23 @@ function useFileUpload({sendFormData, data, setData, isProcessing, setFilenames,
   // }
 
 
-  function handleClick() {
+function handleClick() {
   // Case 1: No files selected
   if (!data || data?.length === 0) {
     setFilenames("No files uploaded");
-    return; // Stop here - don't try to upload
+    return;
   }
 
-  // Case 2: Already processing
+  // Case 2: Already processing - check differently
   if (isProcessing) {
-    setFilenames(`Still processing ${data.length} file(s)... - please wait`);
-    return; // Don't start another upload
+    // Don't start another upload, but don't change the message
+    return; 
   }
 
   // Case 3: Ready to upload
   if (fileInputRef.current && data?.length > 0) {
     const formData = createFormData(data);
+    setIsProcessing(true)
     sendFormData(formData);
     setFilenames(`Processing ${data.length} file(s)...`);
     fileInputRef.current.value = "";

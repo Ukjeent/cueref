@@ -36,7 +36,7 @@ function App() {
     songData,
   } = useFormData(isProcessing, setIsProcessing, processingReady, setProcessingReady);
 
-  const uploadConfig = { sendFormData, data, setData, isProcessing, setFilenames, frames};
+  const uploadConfig = { sendFormData, data, setData, isProcessing, setIsProcessing, setFilenames, frames};
 
   
   const {

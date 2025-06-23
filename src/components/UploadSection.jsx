@@ -34,8 +34,12 @@ songCountReady
           accept=".edl"
           multiple
         />
-        <button onClick={handleClick} id="processButton" className="button">
-          Process
+        <button 
+          onClick={handleClick}   
+          disabled={isProcessing} 
+          id="processButton" 
+          className="button">
+          {isProcessing ? "Processing..." : "Process"}
         </button>
       </div>
       <label htmlFor="frameRate">Select frame rate:</label>

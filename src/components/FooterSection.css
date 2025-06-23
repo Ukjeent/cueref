@@ -1,6 +1,38 @@
 
-.footer-wrapper {
+.footer-section {
   background-color: #f8f9fa;
-  padding-top: 20px;
-  text-align: center;
+    padding-top: 20px;
+}
+
+.footer-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+}
+
+.footer-content {
+  display: flex;
+  max-width: 50%;
+  justify-content: space-between;
+}
+
+.footer-content > div:first-child {
+  margin-right: 4rem;
+}
+
+.footer-content > div > h3 {
+  font-size: 1.2rem;
+}
+
+.footer-logo-div {
+  display: flex;
+}
+
+.footer-logo-div > a {
+  align-content: center;
+}
+
+.copyright-p {
+  justify-self: center;
+  font-size: 0.9rem;
 }
