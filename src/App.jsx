@@ -10,6 +10,8 @@ import SummarySection from "./components/SummarySection";
 import TableSection from "./components/TableSection";
 import WelcomeBanner from "./components/WelcomeBanner";
 import useFormData from "./hooks/useSendFormData";
+import FooterSection from "./components/FooterSection";
+
 
 function App() {
   const [showUploadSection, setShowUploadSection] = useState(false);
@@ -66,6 +68,7 @@ function App() {
         </div>
         <SupportedLibraries />
       </main>
+      <FooterSection />
     </>
   );
 }

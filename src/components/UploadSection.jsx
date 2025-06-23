@@ -17,7 +17,7 @@ function UploadSection({
   const [estimatedMinutes, setEstimatedMinutes] = useState(0);
   const [processingInfo, setProcessingInfo] = useState("");
   const [fileCount, setFileCount] = useState(0);
-  const [frames, setFrames] = useState(0);
+  const [frames, setFrames] = useState('25');
 
   useEffect(() => {
     if (isProcessing && songCount) {
@@ -51,7 +51,7 @@ function UploadSection({
     for (let i = 0; i < files.length; i++) {
       formData.append("files", files[i]);
     }
-    const frameRate = document.querySelector("#frameRate").value;
+    const frameRate = frames;
     formData.append("frames", frameRate);
     return formData;
   };
@@ -132,12 +132,10 @@ function UploadSection({
         </button>
       </div>
       <label htmlFor="frameRate">Select frame rate:</label>
-      <select id="frameRate" name="frameRate">
+      <select  defaultValue="25" onChange={(e) => setFrames(e.target.value)} id="frameRate" name="frameRate">
         <option value="23.976">23.976 fps</option>
         <option value="24">24 fps</option>
-        <option value="25" selected>
-          25 fps
-        </option>
+        <option value="25">25 fps</option>
         <option value="29.97">29.97 fps</option>
         <option value="30">30 fps</option>
         <option value="50">50 fps</option>
