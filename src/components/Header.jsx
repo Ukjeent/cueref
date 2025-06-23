@@ -17,14 +17,8 @@ function Header() {
         <Navbar.Offcanvas id="basic-navbar-nav" placement="end">
           <Offcanvas.Header closeButton></Offcanvas.Header>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link disabled href="#link">
-              About
-            </Nav.Link>
-            <Nav.Link disabled href="#link">
-              Pricing
-            </Nav.Link>
-            <Nav.Link disabled href="#link">
+            {/* <Nav.Link href="#home">Home</Nav.Link> */}
+            <Nav.Link href="#link">
               Login
             </Nav.Link>
           </Nav>

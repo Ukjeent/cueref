@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { apiBase, endPoint } from "../config.js";
 
-function useSendFormData() {
+function useSendFormData(isProcessing, setIsProcessing, processingReady, setProcessingReady) {
   const [error, setError] = useState(null);
   const [summaryData, setSummaryData] = useState(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [processingReady, setProcessingReady] = useState(false);
   const [estimatedSeconds, setEstimatedSeconds] = useState(0);
   const [songCount, setSongCount] = useState(0);
   const [uploadId, setUploadId] = useState(null);
@@ -112,7 +110,6 @@ function useSendFormData() {
   }
 
   const fetch_songs = (uploadId) => {
-    console.log("Fetching songs"); // this runs immediately
     fetch(`${apiBase}/songs?upload_id=${uploadId}`)
       .then((response) => {
         console.log("Response:", response);
@@ -120,34 +117,6 @@ function useSendFormData() {
       })
       .then((data) => {
         setSongData(data);
-        // const tbody = document.querySelector("#trackTableBody");
-        // tbody.innerHTML = "";
-        // let i = 0;
-        // data.forEach((song) => {
-        //   console.log("Song:", song);
-        //   let rowId = `row-${i}`;
-        //   i += 1;
-        //   const row = document.createElement("tr");
-        //   row.setAttribute("class", "song-rows");
-        //   row.setAttribute("id", rowId);
-        //   row.innerHTML = `
-        //     <td class="show-tablet">${song.file_name || ""}</td>
-        //     <td>${song.songs || ""}</td>
-        //     <td>${song.title || ""}</td>
-        //     <td>${capitalizeWords(song.library) || ""}</td>
-        //     <td class="show-desktop">${song.composer || ""}</td>
-        //     <!-- <td class="show-tablet">${
-        //       formatTime(song.duration) || ""
-        //     }</td> -->
-        //     <td class="show-desktop">${song.bpm || ""}</td>
-        //     <td class="show-desktop">${song.mix || ""}</td>
-        //     <td>${formatTime(song.total_time_played) || ""}</td>
-        //   `;
-        //   tbody.appendChild(row);
-        //   fileNameElement.textContent =
-        //     "Finished processing " + fileNames.length + " files!";
-        //   processBtn.textContent = "Process";
-        // });
       })
       .catch((error) => {
         console.error("Error fetching songs:", error);

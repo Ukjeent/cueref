@@ -9,23 +9,48 @@ import SupportedLibraries from "./components/SupportedLibraries";
 import SummarySection from "./components/SummarySection";
 import TableSection from "./components/TableSection";
 import WelcomeBanner from "./components/WelcomeBanner";
-import useFormData from "./hooks/useSendFormData";
 import FooterSection from "./components/FooterSection";
+
+import useFormData from "./hooks/useSendFormData";
+import useFileUpload from "./hooks/useFileUpload";
+import useProcessingDisplay from "./hooks/useProcessingDisplay";
 
 
 function App() {
+  const [data, setData] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [showUploadSection, setShowUploadSection] = useState(false);
+  const [filenames, setFilenames] = useState("");
+  const [frames, setFrames] = useState('25');
+  const [processingReady, setProcessingReady] = useState(false);
+
+
+
 
   const {
     sendFormData,
-    isProcessing,
-    processingReady,
     estimatedSeconds,
     summaryData,
     error,
     songCount,
     songData,
-  } = useFormData();
+  } = useFormData(isProcessing, setIsProcessing, processingReady, setProcessingReady);
+
+  const uploadConfig = { sendFormData, data, setData, isProcessing, setFilenames, frames};
+
+  
+  const {
+    handleClick,
+    handleFileChange,
+    fileInputRef
+  } = useFileUpload(uploadConfig);
+
+  const {
+    animationTime,
+    processingInfo,
+    songCountReady
+  } = useProcessingDisplay(isProcessing, setFilenames, data, songCount, estimatedSeconds, processingReady)
+
 
   const handleShowUploadSectionClick = () => {
     setShowUploadSection(true);
@@ -46,12 +71,18 @@ function App() {
         >
           {showUploadSection && (
             <UploadSection
-              sendFormData={sendFormData}
+              data={data}
               error={error}
-              songCount={songCount}
               isProcessing={isProcessing}
-              estimatedSeconds={estimatedSeconds}
-              processingReady={processingReady}
+              handleClick={handleClick}
+              handleFileChange={handleFileChange}
+              filenames={filenames}
+              setFilenames={setFilenames}
+              setFrames={setFrames}
+              fileInputRef={fileInputRef}
+              animationTime={animationTime}
+              processingInfo={processingInfo}
+              songCountReady={songCountReady}
             />
           )}
           <div className={`result-section ${processingReady ? "show" : ""}`}>

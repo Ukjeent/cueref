@@ -2,112 +2,19 @@ import "./UploadSection.css";
 import { useState, useRef, useEffect, use } from "react";
 
 function UploadSection({
-  sendFormData,
-  error,
-  songCount,
-  isProcessing,
-  estimatedSeconds,
-  processingReady,
+error,
+isProcessing,
+handleClick,
+handleFileChange,
+filenames,
+setFrames,
+fileInputRef,
+animationTime,
+processingInfo,
+songCountReady
 }) {
-  const [data, setData] = useState(null);
-  const fileInputRef = useRef(null);
-  const [filenames, setFilenames] = useState("");
-  const [songCountReady, setSongCountReady] = useState(false);
-  const [animationTime, setAnimationTime] = useState(60);
-  const [estimatedMinutes, setEstimatedMinutes] = useState(0);
-  const [processingInfo, setProcessingInfo] = useState("");
-  const [fileCount, setFileCount] = useState(0);
-  const [frames, setFrames] = useState('25');
 
-  useEffect(() => {
-    if (isProcessing && songCount) {
-      const estimatedMinutes = Math.ceil(estimatedSeconds / 60);
-      setAnimationTime(estimatedSeconds);
-      setEstimatedMinutes(estimatedMinutes);
-      setFilenames(`Processing ${fileCount} file(s) and ${songCount} songs`);
-      setProcessingInfo(
-        `Estimated time: ${
-          estimatedSeconds >= 60
-            ? estimatedMinutes + " minutes"
-            : estimatedSeconds + " seconds"
-        } on our development server during beta testing`
-      );
-      setSongCountReady(true);
-    }
-  }, [songCount, isProcessing, estimatedSeconds, estimatedMinutes, fileCount]);
 
-  useEffect(() => {
-    if (processingReady) {
-      setAnimationTime(1);
-      setFilenames(`Processed ${fileCount} file(s) and ${songCount} songs`);
-      setProcessingInfo(
-        "Processing complete! You can now download the results."
-      );
-    }
-  }, [processingReady]);
-
-  const createFormData = (files) => {
-    const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append("files", files[i]);
-    }
-    const frameRate = frames;
-    formData.append("frames", frameRate);
-    return formData;
-  };
-
-  function handleClick() {
-    if (fileInputRef.current) {
-      if (fileCount === 1) {
-        const formData = createFormData(data);
-        sendFormData(formData);
-        setFilenames("Processing " + fileCount + " file...");
-        fileInputRef.current.value = "";
-      } else if (fileCount > 1) {
-        const formData = createFormData(data);
-        sendFormData(formData);
-        setFilenames("Processing " + fileCount + " file(s)...");
-        fileInputRef.current.value = "";
-      }
-    }
-
-    if (fileCount === 0 && isProcessing === false) {
-      setFilenames("No files uploaded");
-    } else if (isProcessing === true) {
-      setFilenames(
-        "Still processing " + fileCount + " file(s)... - please wait"
-      );
-    }
-  }
-
-  function handleFileChange(e) {
-    let filenameStr = "";
-    let filenameArr = [];
-    let files = e.target.files;
-
-    for (let i = 0; i < files.length; i++) {
-      filenameArr.push(files[i].name);
-    }
-
-    if (files.length === 1) {
-      filenameStr = "Uploaded file: ";
-    } else if (files.length > 1) {
-      filenameStr = "Uploaded files: ";
-    }
-
-    for (let i = 0; i < filenameArr.length; i++) {
-      if (i === e.target.files.length - 1) {
-        filenameStr += filenameArr[i];
-      } else {
-        filenameStr += filenameArr[i] + " / ";
-      }
-    }
-    setData(files);
-    // setIsProcessing(false);
-    setFileCount(files.length);
-    setFilenames(filenameStr);
-    files.value = null; // Reset the input value
-  }
 
   return (
     <div className="upload-section">
