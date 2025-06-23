@@ -1,7 +1,6 @@
-
 .footer-section {
   background-color: #f8f9fa;
-    padding-top: 20px;
+  padding-top: 20px;
 }
 
 .footer-wrapper {
@@ -12,12 +11,12 @@
 
 .footer-content {
   display: flex;
-  max-width: 50%;
-  justify-content: space-between;
+  justify-content: space-around;
+  flex: 1;
 }
 
 .footer-content > div:first-child {
-  margin-right: 4rem;
+  margin-right: 0rem;
 }
 
 .footer-content > div > h3 {
@@ -25,7 +24,7 @@
 }
 
 .footer-logo-div {
-  display: flex;
+  display: none;
 }
 
 .footer-logo-div > a {
@@ -35,4 +34,19 @@
 .copyright-p {
   justify-self: center;
   font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .footer-content {
+    justify-content: space-between;
+    margin: unset;
+    flex: unset;
+  }
+
+  .footer-content > div:first-child {
+    margin-right: 4rem;
+  }
+  .footer-logo-div {
+    display: flex;
+  }
 }

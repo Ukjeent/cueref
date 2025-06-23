@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { apiBase, endPoint } from "../config.js";
 
-function useSendFormData(isProcessing, setIsProcessing, processingReady, setProcessingReady) {
+function useSendFormData(
+  isProcessing,
+  setIsProcessing,
+  processingReady,
+  setProcessingReady
+) {
   const [error, setError] = useState(null);
   const [summaryData, setSummaryData] = useState(null);
   const [estimatedSeconds, setEstimatedSeconds] = useState(0);
@@ -16,9 +21,6 @@ function useSendFormData(isProcessing, setIsProcessing, processingReady, setProc
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Data: ", data);
-        console.log("Upload successful:", data);
-        setIsProcessing(true);
         let maxTimeout = 600000;
         if (data.song_count) {
           setSongCount(data.song_count);
@@ -28,7 +30,6 @@ function useSendFormData(isProcessing, setIsProcessing, processingReady, setProc
         }
 
         if (data && data.upload_id) {
-          console.log(`Stating pollAPI for upload ID: ${data.upload_id}`);
           const startPolling = async () => {
             const result = await pollApi(
               endPoint,
@@ -42,6 +43,7 @@ function useSendFormData(isProcessing, setIsProcessing, processingReady, setProc
             }
             setSummaryData(result);
             setProcessingReady(true);
+            setIsProcessing(false);
             setUploadId(data.upload_id);
             fetch_songs(data.upload_id);
           };
@@ -50,6 +52,7 @@ function useSendFormData(isProcessing, setIsProcessing, processingReady, setProc
       })
       .catch((error) => {
         setError(error);
+        setIsProcessing(false);
         console.error("Upload failed:", error);
       });
   };

@@ -15,17 +15,13 @@ import useFormData from "./hooks/useSendFormData";
 import useFileUpload from "./hooks/useFileUpload";
 import useProcessingDisplay from "./hooks/useProcessingDisplay";
 
-
 function App() {
   const [data, setData] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showUploadSection, setShowUploadSection] = useState(false);
   const [filenames, setFilenames] = useState("");
-  const [frames, setFrames] = useState('25');
+  const [frames, setFrames] = useState("25");
   const [processingReady, setProcessingReady] = useState(false);
-
-
-
 
   const {
     sendFormData,
@@ -34,24 +30,36 @@ function App() {
     error,
     songCount,
     songData,
-  } = useFormData(isProcessing, setIsProcessing, processingReady, setProcessingReady);
+  } = useFormData(
+    isProcessing,
+    setIsProcessing,
+    processingReady,
+    setProcessingReady
+  );
 
-  const uploadConfig = { sendFormData, data, setData, isProcessing, setIsProcessing, setFilenames, frames};
+  const uploadConfig = {
+    sendFormData,
+    data,
+    setData,
+    isProcessing,
+    setIsProcessing,
+    setProcessingReady,
+    setFilenames,
+    frames,
+  };
 
-  
-  const {
-    handleClick,
-    handleFileChange,
-    fileInputRef
-  } = useFileUpload(uploadConfig);
+  const { handleClick, handleFileChange, fileInputRef } =
+    useFileUpload(uploadConfig);
 
-  const {
-    animationTime,
-    processingInfo,
-    songCountReady,
-    noFiles
-  } = useProcessingDisplay(isProcessing, setFilenames, data, songCount, estimatedSeconds, processingReady)
-
+  const { animationTime, processingInfo, songCountReady, noFiles } =
+    useProcessingDisplay(
+      isProcessing,
+      setFilenames,
+      data,
+      songCount,
+      estimatedSeconds,
+      processingReady
+    );
 
   const handleShowUploadSectionClick = () => {
     setShowUploadSection(true);
@@ -84,7 +92,7 @@ function App() {
               animationTime={animationTime}
               processingInfo={processingInfo}
               songCountReady={songCountReady}
-              noFiles={noFiles}
+              processingReady={processingReady}
             />
           )}
           <div className={`result-section ${processingReady ? "show" : ""}`}>

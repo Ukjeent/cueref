@@ -2,20 +2,18 @@ import "./UploadSection.css";
 import { useState, useRef, useEffect, use } from "react";
 
 function UploadSection({
-error,
-isProcessing,
-handleClick,
-handleFileChange,
-filenames,
-setFrames,
-fileInputRef,
-animationTime,
-processingInfo,
-songCountReady
+  error,
+  isProcessing,
+  handleClick,
+  handleFileChange,
+  filenames,
+  setFrames,
+  fileInputRef,
+  animationTime,
+  processingInfo,
+  songCountReady,
+  processingReady,
 }) {
-
-
-
   return (
     <div className="upload-section">
       <h3 style={{ marginTop: "-15px", marginBottom: "10px" }}>
@@ -27,6 +25,7 @@ songCountReady
         </label>
         <input
           ref={fileInputRef}
+          disabled={isProcessing}
           onChange={handleFileChange}
           type="file"
           id="fileInput"
@@ -34,16 +33,23 @@ songCountReady
           accept=".edl"
           multiple
         />
-        <button 
-          onClick={handleClick}   
-          disabled={isProcessing} 
-          id="processButton" 
-          className="button">
+        <button
+          onClick={handleClick}
+          disabled={isProcessing}
+          id="processButton"
+          className="button"
+        >
           {isProcessing ? "Processing..." : "Process"}
         </button>
       </div>
       <label htmlFor="frameRate">Select frame rate:</label>
-      <select  defaultValue="25" onChange={(e) => setFrames(e.target.value)} id="frameRate" name="frameRate">
+      <select
+        defaultValue="25"
+        disabled={isProcessing}
+        onChange={(e) => setFrames(e.target.value)}
+        id="frameRate"
+        name="frameRate"
+      >
         <option value="23.976">23.976 fps</option>
         <option value="24">24 fps</option>
         <option value="25">25 fps</option>
@@ -74,7 +80,7 @@ songCountReady
         <p
           id="songProcessingDisplay"
           className={`processing-text ${
-            isProcessing && songCountReady ? "show" : ""
+            (isProcessing || processingReady) && songCountReady ? "show" : ""
           }`}
         >
           {processingInfo}

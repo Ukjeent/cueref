@@ -1,77 +1,58 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
+function useFileUpload({
+  sendFormData,
+  data,
+  setData,
+  isProcessing,
+  setIsProcessing,
+  setProcessingReady,
+  setFilenames,
+  frames,
+}) {
+  const fileInputRef = useRef(null);
 
-function useFileUpload({sendFormData, data, setData, isProcessing, setIsProcessing, setFilenames, frames}) {
+  const createFormData = (files) => {
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append("files", files[i]);
+    }
+    const frameRate = frames;
+    formData.append("frames", frameRate);
+    return formData;
+  };
 
-    
-    const fileInputRef = useRef(null);
+  useEffect(() => {
+    if (!isProcessing && fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }, [isProcessing]);
 
+  function handleClick() {
+    // Case 1: No files selected
+    if (!data || data?.length === 0) {
+      setFilenames("No files uploaded");
+      return;
+    }
 
-    const createFormData = (files) => {
-      const formData = new FormData();
-      for (let i = 0; i < files.length; i++) {
-        formData.append("files", files[i]);
-      }
-      const frameRate = frames;
-      formData.append("frames", frameRate);
-      return formData;
-    };
+    // Case 2: Already processing - check differently
+    if (isProcessing) {
+      // Don't start another upload and don't change the message
+      return;
+    }
 
-  //   function handleClick() {
-
-      
-  //   if (data?.length === 0 && isProcessing === false) {
-  //     setFilenames("No files uploaded");
-  //   } else if (isProcessing === true) {
-  //     setFilenames(
-  //       "Still processing " + data?.length + " file(s)... - please wait"
-  //     );
-  //   }
-
-
-  //   if (fileInputRef.current) {
-      
-  //     if (data?.length === 1) {
-  //       const formData = createFormData(data);
-  //       sendFormData(formData);
-  //       setFilenames("Processing " + data?.length + " file...");
-  //       fileInputRef.current.value = "";
-  //     } else if (data?.length > 1) {
-  //       const formData = createFormData(data);
-  //       sendFormData(formData);
-  //       setFilenames("Processing " + data?.length + " file(s)...");
-  //       fileInputRef.current.value = "";
-  //     }
-  //   }
-
-
-  // }
-
-
-function handleClick() {
-  // Case 1: No files selected
-  if (!data || data?.length === 0) {
-    setFilenames("No files uploaded");
-    return;
+    // Case 3: Ready to upload
+    if (fileInputRef.current && data?.length > 0) {
+      const formData = createFormData(data);
+      setIsProcessing(true);
+      setProcessingReady(false);
+      sendFormData(formData);
+      setFilenames(`Processing ${data?.length} file(s)...`);
+      // fileInputRef.current.value = "";
+    }
   }
 
-  // Case 2: Already processing - check differently
-  if (isProcessing) {
-    // Don't start another upload, but don't change the message
-    return; 
-  }
-
-  // Case 3: Ready to upload
-  if (fileInputRef.current && data?.length > 0) {
-    const formData = createFormData(data);
-    setIsProcessing(true)
-    sendFormData(formData);
-    setFilenames(`Processing ${data.length} file(s)...`);
-    fileInputRef.current.value = "";
-  }
-}
-
-    function handleFileChange(e) {
+  function handleFileChange(e) {
     let filenameStr = "";
     let filenameArr = [];
     let files = e.target.files;
@@ -95,9 +76,8 @@ function handleClick() {
     }
     setData(files);
     setFilenames(filenameStr);
-    files.value = null; // Reset the input value
+    // files.value = null; // Reset the input value
   }
-
 
   return {
     handleClick,
@@ -106,4 +86,4 @@ function handleClick() {
     fileInputRef,
   };
 }
-export default useFileUpload ;
+export default useFileUpload;
