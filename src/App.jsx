@@ -48,7 +48,8 @@ function App() {
   const {
     animationTime,
     processingInfo,
-    songCountReady
+    songCountReady,
+    noFiles
   } = useProcessingDisplay(isProcessing, setFilenames, data, songCount, estimatedSeconds, processingReady)
 
 
@@ -83,6 +84,7 @@ function App() {
               animationTime={animationTime}
               processingInfo={processingInfo}
               songCountReady={songCountReady}
+              noFiles={noFiles}
             />
           )}
           <div className={`result-section ${processingReady ? "show" : ""}`}>

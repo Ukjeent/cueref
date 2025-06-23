@@ -1,9 +1,8 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 
 function useFileUpload({sendFormData, data, setData, isProcessing, setFilenames, frames}) {
 
-    console.log('useFileUpload hook - current data:', data);  // ← Add this
     
     const fileInputRef = useRef(null);
 
@@ -18,38 +17,58 @@ function useFileUpload({sendFormData, data, setData, isProcessing, setFilenames,
       return formData;
     };
 
-    function handleClick() {
-      console.log('handleClick called:', { 
-        dataLength: data?.length, 
-        isProcessing, 
-        hasFiles: !!fileInputRef.current?.files?.length 
-      });
-    if (!data || data?.length === 0) {
-      setFilenames("No files uploaded");
-      return; // Don't continue with upload
-    }
-    if (fileInputRef.current) {
-      if (data?.length === 1) {
-        const formData = createFormData(data);
-        sendFormData(formData);
-        setFilenames("Processing " + data?.length + " file...");
-        fileInputRef.current.value = "";
-      } else if (data?.length> 1) {
-        const formData = createFormData(data);
-        sendFormData(formData);
-        setFilenames("Processing " + data?.length + " file(s)...");
-        fileInputRef.current.value = "";
-      }
-    }
+  //   function handleClick() {
 
-    if (data?.length === 0 && isProcessing === false) {
-      setFilenames("No files uploaded");
-    } else if (isProcessing === true) {
-      setFilenames(
-        "Still processing " + data?.length + " file(s)... - please wait"
-      );
-    }
+      
+  //   if (data?.length === 0 && isProcessing === false) {
+  //     setFilenames("No files uploaded");
+  //   } else if (isProcessing === true) {
+  //     setFilenames(
+  //       "Still processing " + data?.length + " file(s)... - please wait"
+  //     );
+  //   }
+
+
+  //   if (fileInputRef.current) {
+      
+  //     if (data?.length === 1) {
+  //       const formData = createFormData(data);
+  //       sendFormData(formData);
+  //       setFilenames("Processing " + data?.length + " file...");
+  //       fileInputRef.current.value = "";
+  //     } else if (data?.length > 1) {
+  //       const formData = createFormData(data);
+  //       sendFormData(formData);
+  //       setFilenames("Processing " + data?.length + " file(s)...");
+  //       fileInputRef.current.value = "";
+  //     }
+  //   }
+
+
+  // }
+
+
+  function handleClick() {
+  // Case 1: No files selected
+  if (!data || data?.length === 0) {
+    setFilenames("No files uploaded");
+    return; // Stop here - don't try to upload
   }
+
+  // Case 2: Already processing
+  if (isProcessing) {
+    setFilenames(`Still processing ${data.length} file(s)... - please wait`);
+    return; // Don't start another upload
+  }
+
+  // Case 3: Ready to upload
+  if (fileInputRef.current && data?.length > 0) {
+    const formData = createFormData(data);
+    sendFormData(formData);
+    setFilenames(`Processing ${data.length} file(s)...`);
+    fileInputRef.current.value = "";
+  }
+}
 
     function handleFileChange(e) {
     let filenameStr = "";
@@ -75,7 +94,7 @@ function useFileUpload({sendFormData, data, setData, isProcessing, setFilenames,
     }
     setData(files);
     setFilenames(filenameStr);
-    // files.value = null
+    files.value = null; // Reset the input value
   }
 
 
@@ -83,7 +102,7 @@ function useFileUpload({sendFormData, data, setData, isProcessing, setFilenames,
     handleClick,
     handleFileChange,
     data,
-    fileInputRef
+    fileInputRef,
   };
 }
 export default useFileUpload ;
