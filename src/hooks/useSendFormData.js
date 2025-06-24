@@ -5,13 +5,14 @@ function useSendFormData(
   isProcessing,
   setIsProcessing,
   processingReady,
-  setProcessingReady
+  setProcessingReady,
+  uploadId,
+  setUploadId,
+  setError
 ) {
-  const [error, setError] = useState(null);
   const [summaryData, setSummaryData] = useState(null);
   const [estimatedSeconds, setEstimatedSeconds] = useState(0);
   const [songCount, setSongCount] = useState(0);
-  const [uploadId, setUploadId] = useState(null);
   const [songData, setSongData] = useState(null);
 
   const sendFormData = async (data) => {
@@ -132,7 +133,6 @@ function useSendFormData(
     processingReady,
     estimatedSeconds,
     summaryData,
-    error,
     songCount,
     songData,
   };

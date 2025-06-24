@@ -11,7 +11,7 @@ import TableSection from "./components/TableSection";
 import WelcomeBanner from "./components/WelcomeBanner";
 import FooterSection from "./components/FooterSection";
 
-import useFormData from "./hooks/useSendFormData";
+import useSendFormData from "./hooks/useSendFormData";
 import useFileUpload from "./hooks/useFileUpload";
 import useProcessingDisplay from "./hooks/useProcessingDisplay";
 
@@ -22,20 +22,19 @@ function App() {
   const [filenames, setFilenames] = useState("");
   const [frames, setFrames] = useState("25");
   const [processingReady, setProcessingReady] = useState(false);
+  const [uploadId, setUploadId] = useState(null);
+  const [error, setError] = useState(null);
 
-  const {
-    sendFormData,
-    estimatedSeconds,
-    summaryData,
-    error,
-    songCount,
-    songData,
-  } = useFormData(
-    isProcessing,
-    setIsProcessing,
-    processingReady,
-    setProcessingReady
-  );
+  const { sendFormData, estimatedSeconds, summaryData, songCount, songData } =
+    useSendFormData(
+      isProcessing,
+      setIsProcessing,
+      processingReady,
+      setProcessingReady,
+      uploadId,
+      setUploadId,
+      setError
+    );
 
   const uploadConfig = {
     sendFormData,
@@ -104,7 +103,12 @@ function App() {
               songData={songData}
               processingReady={processingReady}
             />
-            <DownloadSection />
+            <DownloadSection
+              uploadId={uploadId}
+              processingReady={processingReady}
+              error={error}
+              setError={setError}
+            />
           </div>
         </div>
         <SupportedLibraries />
