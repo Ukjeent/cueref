@@ -65,7 +65,7 @@ function App() {
   };
 
   return (
-    <>
+    <div className="app-container">
       <Header />
       <main>
         <WelcomeBanner
@@ -114,7 +114,7 @@ function App() {
         <SupportedLibraries />
       </main>
       <FooterSection />
-    </>
+    </div>
   );
 }
 export default App;
