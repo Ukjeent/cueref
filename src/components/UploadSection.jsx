@@ -20,7 +20,10 @@ function UploadSection({
         Upload EDL Files
       </h3>
       <div className="file-row">
-        <label htmlFor="fileInput" className="custom-file-label">
+        <label
+          htmlFor="fileInput"
+          className={`custom-file-label ${isProcessing ? "disabled" : ""}`}
+        >
           Select files
         </label>
         <input

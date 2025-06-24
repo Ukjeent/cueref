@@ -16,6 +16,12 @@ body {
   transition: opacity 0.4s ease-in-out;
 }
 
+button[disabled],
+select[disabled],
+.custom-file-label.disabled {
+  cursor: not-allowed;
+}
+
 .button:hover {
   background-color: rgba(251, 113, 133, 0.5);
 }
@@ -56,8 +62,9 @@ body {
   opacity: 0;
 }
 
-
-li, ul, ol {
+li,
+ul,
+ol {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -68,9 +75,7 @@ a {
   color: inherit;
 }
 
-
 a:hover,
 a:focus {
   text-decoration: underline;
 }
-
