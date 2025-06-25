@@ -6,7 +6,11 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import logo from "/images/cueref_logo_coral_btn.svg";
 
-function Header() {
+function Header({setModalShow}) {
+
+    const handleLoginClick = () => setModalShow(true);
+
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
@@ -18,7 +22,7 @@ function Header() {
           <Offcanvas.Header closeButton></Offcanvas.Header>
           <Nav className="me-auto">
             {/* <Nav.Link href="#home">Home</Nav.Link> */}
-            <Nav.Link href="#link">
+            <Nav.Link onClick={handleLoginClick}>
               Login
             </Nav.Link>
           </Nav>

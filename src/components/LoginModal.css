@@ -1,0 +1,80 @@
+.modal-dialog.modal-lg.modal-dialog-centered {
+    max-width: 400px;
+
+}
+
+.modal-content {
+    border: none;
+    border-radius: 8px;
+}
+
+.modal-header {
+    border: none;
+    padding-bottom: 0;
+}
+
+.modal-title {
+  flex: 1;
+  text-align: center;
+  font-weight: 700;
+}
+
+.modal-form-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 1rem 0rem 1rem;
+}
+
+.form-label {
+    margin-bottom: .2rem;
+}
+
+.modal-form-wrapper input {
+    background-color: #f8f9fa;
+    border-radius: 4px;
+
+}
+
+#login-button {
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+
+.create-account-wrapper {
+    padding-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.create-account-button {
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #999;
+    color: white;
+    border: none;
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.4s ease-in-out;
+
+}
+
+.create-account-button:hover {
+  background-color: #666;
+}
+
+
+.forgot-password-link {
+    font-style: italic;
+}
+.modal-footer {
+    border: none;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2rem;
+}
+

@@ -10,12 +10,14 @@ import SummarySection from "./components/SummarySection";
 import TableSection from "./components/TableSection";
 import WelcomeBanner from "./components/WelcomeBanner";
 import FooterSection from "./components/FooterSection";
+import LoginModal from "./components/LoginModal"
 
 import useSendFormData from "./hooks/useSendFormData";
 import useFileUpload from "./hooks/useFileUpload";
 import useProcessingDisplay from "./hooks/useProcessingDisplay";
 
 function App() {
+  const [modalShow, setModalShow] = useState(false);
   const [data, setData] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showUploadSection, setShowUploadSection] = useState(false);
@@ -66,7 +68,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <Header />
+      <Header setModalShow={setModalShow}/>
       <main>
         <WelcomeBanner
           handleShowUploadSectionClick={handleShowUploadSectionClick}
@@ -114,6 +116,10 @@ function App() {
         <SupportedLibraries />
       </main>
       <FooterSection />
+      <LoginModal 
+        modalShow={modalShow}
+        setModalShow={setModalShow}
+        />
     </div>
   );
 }
