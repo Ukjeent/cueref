@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { useState } from "react";
 
+import { AuthProvider } from "./contexts/AuthContext";
 import Header from "./components/Header";
 import UploadSection from "./components/UploadSection";
 import DownloadSection from "./components/DownloadSection";
@@ -10,7 +11,7 @@ import SummarySection from "./components/SummarySection";
 import TableSection from "./components/TableSection";
 import WelcomeBanner from "./components/WelcomeBanner";
 import FooterSection from "./components/FooterSection";
-import LoginModal from "./components/LoginModal"
+import LoginModal from "./components/LoginModal";
 
 import useSendFormData from "./hooks/useSendFormData";
 import useFileUpload from "./hooks/useFileUpload";
@@ -67,60 +68,59 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <Header setModalShow={setModalShow}/>
-      <main>
-        <WelcomeBanner
-          handleShowUploadSectionClick={handleShowUploadSectionClick}
-          showUploadSection={showUploadSection}
-        />
-        <div
-          className={`
+    <AuthProvider>
+      <div className="app-container">
+        <Header setModalShow={setModalShow} />
+        <main>
+          <WelcomeBanner
+            handleShowUploadSectionClick={handleShowUploadSectionClick}
+            showUploadSection={showUploadSection}
+          />
+          <div
+            className={`
         upload-container
           ${showUploadSection ? "show" : ""}`}
-        >
-          {showUploadSection && (
-            <UploadSection
-              data={data}
-              error={error}
-              isProcessing={isProcessing}
-              handleClick={handleClick}
-              handleFileChange={handleFileChange}
-              filenames={filenames}
-              setFilenames={setFilenames}
-              setFrames={setFrames}
-              fileInputRef={fileInputRef}
-              animationTime={animationTime}
-              processingInfo={processingInfo}
-              songCountReady={songCountReady}
-              processingReady={processingReady}
-            />
-          )}
-          <div className={`result-section ${processingReady ? "show" : ""}`}>
-            <SummarySection
-              summaryData={summaryData}
-              processingReady={processingReady}
-            />
-            <TableSection
-              songData={songData}
-              processingReady={processingReady}
-            />
-            <DownloadSection
-              uploadId={uploadId}
-              processingReady={processingReady}
-              error={error}
-              setError={setError}
-            />
+          >
+            {showUploadSection && (
+              <UploadSection
+                data={data}
+                error={error}
+                isProcessing={isProcessing}
+                handleClick={handleClick}
+                handleFileChange={handleFileChange}
+                filenames={filenames}
+                setFilenames={setFilenames}
+                setFrames={setFrames}
+                fileInputRef={fileInputRef}
+                animationTime={animationTime}
+                processingInfo={processingInfo}
+                songCountReady={songCountReady}
+                processingReady={processingReady}
+              />
+            )}
+            <div className={`result-section ${processingReady ? "show" : ""}`}>
+              <SummarySection
+                summaryData={summaryData}
+                processingReady={processingReady}
+              />
+              <TableSection
+                songData={songData}
+                processingReady={processingReady}
+              />
+              <DownloadSection
+                uploadId={uploadId}
+                processingReady={processingReady}
+                error={error}
+                setError={setError}
+              />
+            </div>
           </div>
-        </div>
-        <SupportedLibraries />
-      </main>
-      <FooterSection />
-      <LoginModal 
-        modalShow={modalShow}
-        setModalShow={setModalShow}
-        />
-    </div>
+          <SupportedLibraries />
+        </main>
+        <FooterSection />
+        <LoginModal modalShow={modalShow} setModalShow={setModalShow} />
+      </div>
+    </AuthProvider>
   );
 }
 export default App;

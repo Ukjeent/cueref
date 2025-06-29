@@ -99,7 +99,6 @@ select#frameRate:focus {
   inset: 0 100% 0 0;
   border-radius: inherit;
   background: currentColor;
-  /* animation: l6 20s 1 forwards; */
   animation: l6 var(--animation-duration, 60s) 1 forwards;
 }
 @keyframes l6 {
