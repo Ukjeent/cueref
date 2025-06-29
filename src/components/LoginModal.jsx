@@ -5,36 +5,66 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import useAuth from "../hooks/useAuth";
+import { useAuthContext } from "../contexts/AuthContext";
 
 function LoginModal({ modalShow, setModalShow }) {
   const { register, login, loading, error, wrongPassword } = useAuth();
+
+  const { clearInfo, setClearInfo, isLoggedIn } = useAuthContext();
 
   const [createUserView, setCreateUserView] = useState(false);
   const [loginEmail, setLoginEmail] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
-
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailTouched, setEmailTouched] = useState(false);
   const [registerEmailTouched, setRegisterEmailTouched] = useState(false);
   const [registerPasswordTouched, setRegisterPasswordTouched] = useState(false);
   const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
-  const [wrongPasswordTxt, setWongPasswordTxt] = useState("");
 
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+  useEffect(() => {
+    if (clearInfo) {
+      setCreateUserView(false);
+      setLoginEmail("");
+      setRegisterEmail("");
+      setLoginPassword("");
+      setRegisterPassword("");
+      setConfirmPassword("");
+      setEmailTouched(false);
+      setRegisterEmailTouched(false);
+      setRegisterPasswordTouched(false);
+      setConfirmPasswordTouched(false);
+      console.log("Info cleared");
+      setModalShow(false);
+      setClearInfo(false);
+    }
+  }, [clearInfo]);
+
+  const clearSensitiveInfo = () => {
+    setLoginPassword("");
+    setRegisterPassword("");
+    setConfirmPassword("");
+    setEmailTouched(false);
+    setRegisterEmailTouched(false);
+    setRegisterPasswordTouched(false);
+    setConfirmPasswordTouched(false);
+  };
+
   const handleClose = () => setModalShow(false);
+
   const handleCreateUserClick = () => {
+    clearSensitiveInfo();
     setCreateUserView(true);
-    setRegisterEmail(loginEmail); // Copy over on switch
+    setRegisterEmail(loginEmail);
   };
   const handleBackToLoginClick = () => {
+    clearSensitiveInfo();
     setCreateUserView(false);
     setLoginEmail(registerEmail);
   };
-
-  const handleSaveClick = (registerEmail, password) => {};
 
   return (
     <Modal
@@ -43,6 +73,7 @@ function LoginModal({ modalShow, setModalShow }) {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      onHide={clearSensitiveInfo}
     >
       <Modal.Header closeButton onClick={handleClose}>
         <Modal.Title id="contained-modal-title-vcenter">
@@ -89,6 +120,7 @@ function LoginModal({ modalShow, setModalShow }) {
                 <Form.Group className="mb-3" controlId="loginPassword">
                   <Form.Label>Password</Form.Label>
                   <Form.Control
+                    value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
                     type="password"
                   />
@@ -201,6 +233,7 @@ function LoginModal({ modalShow, setModalShow }) {
                   />
                   <p
                     className={`form-error-info ${
+                      confirmPasswordTouched &&
                       registerPassword.length >= 8 &&
                       confirmPassword.length >= 8 &&
                       registerPassword !== confirmPassword
@@ -225,7 +258,7 @@ function LoginModal({ modalShow, setModalShow }) {
               </Form>
               <div className="create-account-wrapper">
                 <button
-                  onClick={handleBackToLoginClick}
+                  onClick={() => handleBackToLoginClick()}
                   className="create-account-button"
                 >
                   Go back to login

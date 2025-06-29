@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { useAuthContext } from "../contexts/AuthContext";
 
 function useFileUpload({
   sendFormData,
@@ -9,7 +10,10 @@ function useFileUpload({
   setProcessingReady,
   setFilenames,
   frames,
+  setModalShow,
 }) {
+  const { isLoggedIn } = useAuthContext();
+
   const fileInputRef = useRef(null);
 
   const createFormData = (files) => {
@@ -29,26 +33,29 @@ function useFileUpload({
   }, [isProcessing]);
 
   function handleClick() {
-    // Case 1: No files selected
-    if (!data || data?.length === 0) {
-      setFilenames("No files uploaded");
-      return;
-    }
+    if (isLoggedIn) {
+      // Case 1: No files selected
+      if (!data || data?.length === 0) {
+        setFilenames("No files uploaded");
+        return;
+      }
+      // Case 2: Already processing - check differently
+      if (isProcessing) {
+        // Don't start another upload and don't change the message
+        return;
+      }
 
-    // Case 2: Already processing - check differently
-    if (isProcessing) {
-      // Don't start another upload and don't change the message
-      return;
-    }
-
-    // Case 3: Ready to upload
-    if (fileInputRef.current && data?.length > 0) {
-      const formData = createFormData(data);
-      setIsProcessing(true);
-      setProcessingReady(false);
-      sendFormData(formData);
-      setFilenames(`Processing ${data?.length} file(s)...`);
-      // fileInputRef.current.value = "";
+      // Case 3: Ready to upload
+      if (fileInputRef.current && data?.length > 0) {
+        const formData = createFormData(data);
+        setIsProcessing(true);
+        setProcessingReady(false);
+        sendFormData(formData);
+        setFilenames(`Processing ${data?.length} file(s)...`);
+        // fileInputRef.current.value = "";
+      }
+    } else {
+      setModalShow(true);
     }
   }
 

@@ -15,11 +15,7 @@ function WelcomeBanner({ handleShowUploadSectionClick, showUploadSection }) {
           extract track information from EDL files and match it with metadata
           from various music libraries.
         </p>
-        <button
-          onClick={handleShowUploadSectionClick}
-          // className={`button ${showUploadSection ? "hide" : ""}`}
-          className={"button"}
-        >
+        <button onClick={handleShowUploadSectionClick} className={"button"}>
           Try it out!
         </button>
       </div>

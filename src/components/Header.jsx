@@ -11,19 +11,6 @@ import { useAuthContext } from "../contexts/AuthContext";
 function Header({ setModalShow }) {
   const handleLoginClick = () => setModalShow(true);
   const { user, userEmail, isLoggedIn, userLogout } = useAuthContext();
-  const [loginBtnTxt, setLoginBtnTxt] = useState("Login");
-
-  // useEffect(() => {
-  //   if (!isLoggedIn) {
-  //     setLoginBtnTxt("Login");
-  //   } else if (isLoggedIn && userEmail !== "") {
-  //     setLoginBtnTxt(`Loged in as: ${userEmail}`);
-  //   } else if (isLoggedIn && !userEmail) {
-  //     setLoginBtnTxt("Logout");
-  //   } else {
-  //     setLoginBtnTxt("what");
-  //   }
-  // }, [isLoggedIn]);
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -35,17 +22,16 @@ function Header({ setModalShow }) {
         <Navbar.Offcanvas id="basic-navbar-nav" placement="end">
           <Offcanvas.Header closeButton></Offcanvas.Header>
           <Nav className="me-auto">
-            {/* <Nav.Link href="#home">Home</Nav.Link> */}
+            {isLoggedIn && userEmail !== "" ? (
+              <Nav.Link className="nav-link-info">User: ${userEmail}</Nav.Link>
+            ) : (
+              ""
+            )}
             {!isLoggedIn ? (
               <Nav.Link onClick={handleLoginClick}>Login</Nav.Link>
-            ) : isLoggedIn && userEmail !== "" ? (
-              <Nav.Link onClick={() => userLogout()}>
-                Logged in as: ${userEmail}
-              </Nav.Link>
             ) : (
               <Nav.Link onClick={() => userLogout()}>Logout</Nav.Link>
             )}
-            {/* // <Nav.Link onClick={handleLoginClick}>{loginBtnTxt}</Nav.Link> */}
           </Nav>
         </Navbar.Offcanvas>
       </Container>

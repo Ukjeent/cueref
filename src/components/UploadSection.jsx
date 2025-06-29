@@ -1,5 +1,6 @@
 import "./UploadSection.css";
 import { useState, useRef, useEffect, use } from "react";
+// import { useAuthContext } from "../contexts/AuthContext";
 
 function UploadSection({
   error,
@@ -14,6 +15,8 @@ function UploadSection({
   songCountReady,
   processingReady,
 }) {
+  // const { isLoggedIn } = useAuthContext();
+
   return (
     <div className="upload-section">
       <h3 style={{ marginTop: "-15px", marginBottom: "10px" }}>

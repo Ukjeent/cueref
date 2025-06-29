@@ -1,8 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { AuthProvider } from "./contexts/AuthContext";
+// import { useAuthContext } from "./contexts/AuthContext";
+
 import Header from "./components/Header";
 import UploadSection from "./components/UploadSection";
 import DownloadSection from "./components/DownloadSection";
@@ -18,6 +19,8 @@ import useFileUpload from "./hooks/useFileUpload";
 import useProcessingDisplay from "./hooks/useProcessingDisplay";
 
 function App() {
+  // const { isLoggedIn } = useAuthContext();
+
   const [modalShow, setModalShow] = useState(false);
   const [data, setData] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -48,6 +51,7 @@ function App() {
     setProcessingReady,
     setFilenames,
     frames,
+    setModalShow,
   };
 
   const { handleClick, handleFileChange, fileInputRef } =
@@ -68,59 +72,57 @@ function App() {
   };
 
   return (
-    <AuthProvider>
-      <div className="app-container">
-        <Header setModalShow={setModalShow} />
-        <main>
-          <WelcomeBanner
-            handleShowUploadSectionClick={handleShowUploadSectionClick}
-            showUploadSection={showUploadSection}
-          />
-          <div
-            className={`
+    <div className="app-container">
+      <Header setModalShow={setModalShow} />
+      <main>
+        <WelcomeBanner
+          handleShowUploadSectionClick={handleShowUploadSectionClick}
+          showUploadSection={showUploadSection}
+        />
+        <div
+          className={`
         upload-container
           ${showUploadSection ? "show" : ""}`}
-          >
-            {showUploadSection && (
-              <UploadSection
-                data={data}
-                error={error}
-                isProcessing={isProcessing}
-                handleClick={handleClick}
-                handleFileChange={handleFileChange}
-                filenames={filenames}
-                setFilenames={setFilenames}
-                setFrames={setFrames}
-                fileInputRef={fileInputRef}
-                animationTime={animationTime}
-                processingInfo={processingInfo}
-                songCountReady={songCountReady}
-                processingReady={processingReady}
-              />
-            )}
-            <div className={`result-section ${processingReady ? "show" : ""}`}>
-              <SummarySection
-                summaryData={summaryData}
-                processingReady={processingReady}
-              />
-              <TableSection
-                songData={songData}
-                processingReady={processingReady}
-              />
-              <DownloadSection
-                uploadId={uploadId}
-                processingReady={processingReady}
-                error={error}
-                setError={setError}
-              />
-            </div>
+        >
+          {showUploadSection && (
+            <UploadSection
+              data={data}
+              error={error}
+              isProcessing={isProcessing}
+              handleClick={handleClick}
+              handleFileChange={handleFileChange}
+              filenames={filenames}
+              setFilenames={setFilenames}
+              setFrames={setFrames}
+              fileInputRef={fileInputRef}
+              animationTime={animationTime}
+              processingInfo={processingInfo}
+              songCountReady={songCountReady}
+              processingReady={processingReady}
+            />
+          )}
+          <div className={`result-section ${processingReady ? "show" : ""}`}>
+            <SummarySection
+              summaryData={summaryData}
+              processingReady={processingReady}
+            />
+            <TableSection
+              songData={songData}
+              processingReady={processingReady}
+            />
+            <DownloadSection
+              uploadId={uploadId}
+              processingReady={processingReady}
+              error={error}
+              setError={setError}
+            />
           </div>
-          <SupportedLibraries />
-        </main>
-        <FooterSection />
-        <LoginModal modalShow={modalShow} setModalShow={setModalShow} />
-      </div>
-    </AuthProvider>
+        </div>
+        <SupportedLibraries />
+      </main>
+      <FooterSection />
+      <LoginModal modalShow={modalShow} setModalShow={setModalShow} />
+    </div>
   );
 }
 export default App;
