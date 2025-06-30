@@ -23,7 +23,7 @@ function Header({ setModalShow }) {
           <Offcanvas.Header closeButton></Offcanvas.Header>
           <Nav className="me-auto">
             {isLoggedIn && userEmail !== "" ? (
-              <Nav.Link className="nav-link-info">User: ${userEmail}</Nav.Link>
+              <Nav.Link className="nav-link-info">User: {userEmail}</Nav.Link>
             ) : (
               ""
             )}

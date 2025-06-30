@@ -8,8 +8,6 @@
   border-collapse: collapse;
   margin-top: 1rem;
   box-shadow: 0 0 4px rgba(255, 255, 255, 0.05);
-  /* border-radius: 4px; */
-  /* font-style: normal; */
 }
 
 .track-table th:first-child {

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { apiBase, endPoint } from "../config.js";
+import { useAuthContext } from "../contexts/AuthContext";
 
 function useSendFormData(
   isProcessing,
@@ -8,8 +9,10 @@ function useSendFormData(
   setProcessingReady,
   uploadId,
   setUploadId,
-  setError
+  setError,
+  setModalShow
 ) {
+  const { token, userLogout } = useAuthContext();
   const [summaryData, setSummaryData] = useState(null);
   const [estimatedSeconds, setEstimatedSeconds] = useState(0);
   const [songCount, setSongCount] = useState(0);
@@ -18,9 +21,26 @@ function useSendFormData(
   const sendFormData = async (data) => {
     fetch(`${apiBase}/process-edl`, {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: data,
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 401) {
+          // Token expired/invalid - log user out
+          userLogout();
+          setModalShow(true);
+          setIsProcessing(false);
+          throw new Error("Session expired. Please log in again.");
+        }
+
+        if (!response.ok) {
+          throw new Error(`Upload failed: ${response.status}`);
+        }
+
+        return response.json();
+      })
       .then((data) => {
         let maxTimeout = 600000;
         if (data.song_count) {
@@ -35,7 +55,7 @@ function useSendFormData(
             const result = await pollApi(
               endPoint,
               "completed",
-              1000,
+              5000,
               maxTimeout,
               data.upload_id
             );
@@ -92,7 +112,6 @@ function useSendFormData(
 
           if (elapsedTime < maxPollingDuration) {
             setTimeout(makeRequest, pollingInterval); // Schedule next request
-            console.log("Still processing...");
           } else {
             console.log("Maximum polling duration reached. Stopping polling.");
             setError(

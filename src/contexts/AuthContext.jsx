@@ -5,10 +5,10 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [userEmail, setUserEmail] = useState("");
+  const [userEmail, setUserEmail] = useState(localStorage.getItem("email"));
   const [userLastLogin, setUserLastLogin] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!token);
   const [clearInfo, setClearInfo] = useState(false);
 
   useEffect(() => {
@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
         setIsLoggedIn(true);
         setUser(userData["user_id"]);
         setUserEmail(userData["email"]);
+        localStorage.setItem("email", userData["email"]);
       } else {
         userLogout();
       }
@@ -42,6 +43,7 @@ export const AuthProvider = ({ children }) => {
     setUser(userId);
     setToken(authToken);
     setUserEmail(email);
+    localStorage.setItem("email", email);
     setIsLoggedIn(true);
     localStorage.setItem("token", authToken);
   };
@@ -52,6 +54,7 @@ export const AuthProvider = ({ children }) => {
     setUserEmail(null);
     setIsLoggedIn(false);
     setClearInfo(true);
+    localStorage.removeItem("email");
     localStorage.removeItem("token");
   };
 

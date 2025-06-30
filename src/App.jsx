@@ -19,8 +19,6 @@ import useFileUpload from "./hooks/useFileUpload";
 import useProcessingDisplay from "./hooks/useProcessingDisplay";
 
 function App() {
-  // const { isLoggedIn } = useAuthContext();
-
   const [modalShow, setModalShow] = useState(false);
   const [data, setData] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -39,7 +37,8 @@ function App() {
       setProcessingReady,
       uploadId,
       setUploadId,
-      setError
+      setError,
+      setModalShow
     );
 
   const uploadConfig = {
