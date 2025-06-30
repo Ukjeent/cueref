@@ -96,6 +96,11 @@ function LoginModal({ modalShow, setModalShow }) {
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
                     onBlur={() => setEmailTouched(true)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        login(loginEmail, loginPassword);
+                      }
+                    }}
                     className={
                       loginEmail === ""
                         ? ""
@@ -121,6 +126,11 @@ function LoginModal({ modalShow, setModalShow }) {
                   <Form.Control
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        login(loginEmail, loginPassword);
+                      }
+                    }}
                     type="password"
                   />
                   <p style={{ color: "red" }}>
@@ -164,6 +174,11 @@ function LoginModal({ modalShow, setModalShow }) {
                     value={registerEmail}
                     onChange={(e) => setRegisterEmail(e.target.value)}
                     onBlur={() => setRegisterEmailTouched(true)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        register(registerEmail, registerPassword);
+                      }
+                    }}
                     className={
                       registerEmail === ""
                         ? ""
@@ -191,6 +206,11 @@ function LoginModal({ modalShow, setModalShow }) {
                     value={registerPassword}
                     onChange={(e) => setRegisterPassword(e.target.value)}
                     onBlur={() => setRegisterPasswordTouched(true)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        register(registerEmail, registerPassword);
+                      }
+                    }}
                     className={
                       registerPassword === ""
                         ? ""
@@ -221,6 +241,11 @@ function LoginModal({ modalShow, setModalShow }) {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     onBlur={() => setConfirmPasswordTouched(true)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        register(registerEmail, registerPassword);
+                      }
+                    }}
                     className={
                       confirmPassword === ""
                         ? ""
