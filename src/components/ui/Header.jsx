@@ -6,7 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import logo from "/images/cueref_logo_coral_btn.svg";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 function Header({ setModalShow }) {
   const handleLoginClick = () => setModalShow(true);

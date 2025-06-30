@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { apiBase, endPoint } from "../config.js";
+import { apiBase, endPoint } from "../utils/config.js";
 import { useAuthContext } from "../contexts/AuthContext";
 
 function useSendFormData(
@@ -86,7 +86,6 @@ function useSendFormData(
     uploadId
   ) {
     const apiEndpoint = endPoint + uploadId;
-    console.log("Polling API endpoint:", apiEndpoint);
 
     const startTime = Date.now(); // Record the start time
 
@@ -102,7 +101,6 @@ function useSendFormData(
           }
 
           const data = await response.json();
-          console.log("API response:", data);
 
           if (data.status === successResponse) {
             return resolve(data);
@@ -135,7 +133,6 @@ function useSendFormData(
   const fetch_songs = (uploadId) => {
     fetch(`${apiBase}/songs?upload_id=${uploadId}`)
       .then((response) => {
-        console.log("Response:", response);
         return response.json();
       })
       .then((data) => {

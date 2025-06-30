@@ -1,5 +1,5 @@
 import "./UploadSection.css";
-import { useState, useRef, useEffect, use } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function UploadSection({
   error,

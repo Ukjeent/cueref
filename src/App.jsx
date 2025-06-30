@@ -4,15 +4,17 @@ import { useState, useEffect } from "react";
 
 // import { useAuthContext } from "./contexts/AuthContext";
 
-import Header from "./components/Header";
-import UploadSection from "./components/UploadSection";
-import DownloadSection from "./components/DownloadSection";
-import SupportedLibraries from "./components/SupportedLibraries";
-import SummarySection from "./components/SummarySection";
-import TableSection from "./components/TableSection";
-import WelcomeBanner from "./components/WelcomeBanner";
-import FooterSection from "./components/FooterSection";
-import LoginModal from "./components/LoginModal";
+import Header from "./components/ui/Header";
+import FooterSection from "./components/ui/FooterSection";
+import LoginModal from "./components/ui/LoginModal";
+
+import UploadSection from "./components/forms/UploadSection";
+import WelcomeBanner from "./components/forms/WelcomeBanner";
+
+import DownloadSection from "./components/display/DownloadSection";
+import SupportedLibraries from "./components/display/SupportedLibraries";
+import SummarySection from "./components/display/SummarySection";
+import TableSection from "./components/display/TableSection";
 
 import useSendFormData from "./hooks/useSendFormData";
 import useFileUpload from "./hooks/useFileUpload";

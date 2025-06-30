@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { apiBase, endPoint } from "../config.js";
+import { apiBase, endPoint } from "../utils/config.js";
 
 const AuthContext = createContext();
 

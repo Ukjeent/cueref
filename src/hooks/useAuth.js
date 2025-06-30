@@ -1,4 +1,4 @@
-import { apiBase, endPoint } from "../config.js";
+import { apiBase } from "../utils/config.js";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useState, useEffect } from "react";
 
@@ -35,7 +35,6 @@ function useAuth() {
           setLoading(false);
         } else if (response.status === 409) {
           const json = await response.json();
-          console.log(json["detail"]);
           setError(json["detail"]);
           setLoading(false);
         } else if (response.status === 500) {
@@ -46,7 +45,6 @@ function useAuth() {
       } catch (error) {
         setError(error);
         setLoading(false);
-        console.error("Register error: ", error);
       }
     }
   };
@@ -65,7 +63,6 @@ function useAuth() {
         if (response.status === 200) {
           setLoading(false);
           const json = await response.json();
-          console.log("login success: ", json);
           userLogin(json["user_id"], json["user_email"], json["access_token"]);
           setClearInfo(true);
         } else if (response.status === 409) {

@@ -4,8 +4,8 @@ import logo from "/images/cueref_logo_coral_btn.svg";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import useAuth from "../hooks/useAuth";
-import { useAuthContext } from "../contexts/AuthContext";
+import useAuth from "../../hooks/useAuth";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 function LoginModal({ modalShow, setModalShow }) {
   const { register, login, loading, error, wrongPassword } = useAuth();
@@ -37,7 +37,6 @@ function LoginModal({ modalShow, setModalShow }) {
       setRegisterEmailTouched(false);
       setRegisterPasswordTouched(false);
       setConfirmPasswordTouched(false);
-      console.log("Info cleared");
       setModalShow(false);
       setClearInfo(false);
     }

@@ -1,5 +1,5 @@
 import "./DownloadSection.css";
-import { apiBase, endPoint } from "../config.js";
+import { apiBase, endPoint } from "../../utils/config.js";
 import { useState } from "react";
 
 function DownloadSection({ uploadId, processingReady, error, setError }) {
