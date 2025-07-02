@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { useState, useEffect } from "react";
 
-// import { useAuthContext } from "./contexts/AuthContext";
+import { useAuthContext } from "./contexts/AuthContext";
 
 import Header from "./components/ui/Header";
 import FooterSection from "./components/ui/FooterSection";
@@ -21,6 +21,8 @@ import useFileUpload from "./hooks/useFileUpload";
 import useProcessingDisplay from "./hooks/useProcessingDisplay";
 
 function App() {
+  const { clearInfo, setClearInfo, isLoggedIn } = useAuthContext();
+
   const [modalShow, setModalShow] = useState(false);
   const [data, setData] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -30,6 +32,7 @@ function App() {
   const [processingReady, setProcessingReady] = useState(false);
   const [uploadId, setUploadId] = useState(null);
   const [error, setError] = useState(null);
+  const [tryNowClick, setTryNowClick] = useState(false);
 
   const { sendFormData, estimatedSeconds, summaryData, songCount, songData } =
     useSendFormData(
@@ -68,9 +71,24 @@ function App() {
       processingReady
     );
 
+  // const handleShowUploadSectionClick = () => {
+  //   setShowUploadSection(true);
+  // };
+
   const handleShowUploadSectionClick = () => {
-    setShowUploadSection(true);
+    if (!isLoggedIn) {
+      setModalShow(true);
+      setTryNowClick(true);
+    } else if (isLoggedIn) {
+      setTryNowClick(true);
+    }
   };
+
+  useEffect(() => {
+    if (tryNowClick && isLoggedIn) {
+      setShowUploadSection(true);
+    }
+  }, [tryNowClick, isLoggedIn]);
 
   return (
     <div className="app-container">

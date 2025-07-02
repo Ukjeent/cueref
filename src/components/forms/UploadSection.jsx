@@ -14,6 +14,35 @@ function UploadSection({
   songCountReady,
   processingReady,
 }) {
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.currentTarget.classList.add("drag-over");
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.currentTarget.classList.remove("drag-over");
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.currentTarget.classList.remove("drag-over");
+
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      handleFileChange({ target: { files } });
+    }
+  };
+
+  const handleDropZoneClick = () => {
+    if (fileInputRef.current && !isProcessing) {
+      fileInputRef.current.click();
+    }
+  };
+
   return (
     <div className="upload-section">
       <h3 style={{ marginTop: "-15px", marginBottom: "10px" }}>
@@ -79,7 +108,6 @@ function UploadSection({
             ></div>
           )}
         </div>
-
         <p
           id="songProcessingDisplay"
           className={`processing-text ${
@@ -88,6 +116,19 @@ function UploadSection({
         >
           {processingInfo}
         </p>
+        {!isProcessing ? (
+          <div
+            className={`drop-zone ${isProcessing ? "disabled" : ""}`}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            onClick={handleDropZoneClick}
+          >
+            Drop files here
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

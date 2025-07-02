@@ -20,6 +20,42 @@
   padding: 2rem 3rem 0 3rem;
 }
 
+.drop-zone {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #fafafa;
+  color: #666;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+
+.drop-zone:hover {
+  border-color: #999;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.drop-zone.drag-over {
+  border-color: rgba(251, 113, 133, 0.8);
+  background-color: rgba(251, 113, 133, 0.1);
+  color: rgba(251, 113, 133, 0.8);
+}
+
+.drop-zone.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .file-row {
   display: flex;
   align-items: center;
