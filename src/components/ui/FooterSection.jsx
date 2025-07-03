@@ -21,9 +21,7 @@ function FooterSection({ handleLoginClick }) {
               </li>
               <li>
                 {isLoggedIn && userEmail !== "" ? (
-                  <span className="nav-link-info">
-                    Logged in as: {userEmail}
-                  </span>
+                  <span className="nav-link-info">My pages (Coming soon)</span>
                 ) : !isLoggedIn ? (
                   <span onClick={handleLoginClick}>Login</span>
                 ) : (
@@ -40,7 +38,7 @@ function FooterSection({ handleLoginClick }) {
             <h3>Contact us</h3>
             <ul>
               <li>
-                <a href="mailto:info@cueref.com">info@cueref.com</a>
+                <a href="mailto:info@cueref.com">bjorn@bjrn.dev</a>
               </li>
               <li>Stockholm, Sweden</li>
             </ul>
