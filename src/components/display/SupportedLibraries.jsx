@@ -27,22 +27,14 @@ function SupportedLibraries() {
             <p className="library-card__note">(Beta)</p>
           </div>
         </div>
-
-        {/* <div className="library-card">
+        <div className="library-card library-card--beta">
           <div className="library-card__content">
             <h2 className="library-card__title">Audio Network</h2>
-            <p className="library-card__note">(In development)</p>
-          </div>
-        </div> */}
-      </div>
-      <div className="library-grid">
-        <div className="library-card library-card__disabled">
-          <div className="library-card__content library-card--disabled">
-            <h2 className="library-card__title">Audio Network</h2>
-            <p className="library-card__note">(In development)</p>
+            <p className="library-card__note">(Beta)</p>
           </div>
         </div>
-
+      </div>
+      <div className="library-grid">
         <div className="library-card library-card__disabled">
           <div className="library-card__content library-card--disabled">
             <h2 className="library-card__title">APM Music</h2>
