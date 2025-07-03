@@ -52,21 +52,28 @@ function useSendFormData(
 
         if (data && data.upload_id) {
           const startPolling = async () => {
-            const result = await pollApi(
-              endPoint,
-              "completed",
-              5000,
-              maxTimeout,
-              data.upload_id
-            );
-            if (result === null) {
-              console.log("WARNING: Data is null - polling timed out!");
+            try {
+              const result = await pollApi(
+                endPoint,
+                "completed",
+                5000,
+                maxTimeout,
+                data.upload_id
+              );
+              if (result === null) {
+                console.log("WARNING: Data is null - polling timed out!");
+              }
+              setSummaryData(result);
+              setProcessingReady(true);
+              setIsProcessing(false);
+              setUploadId(data.upload_id);
+              fetch_songs(data.upload_id);
+            } catch (error) {
+              console.error("Polling failed:", error);
+              setError(error.message);
+              setIsProcessing(false);
+              setProcessingReady(false);
             }
-            setSummaryData(result);
-            setProcessingReady(true);
-            setIsProcessing(false);
-            setUploadId(data.upload_id);
-            fetch_songs(data.upload_id);
           };
           startPolling();
         }
