@@ -15,7 +15,7 @@ import useSendFormData from "../../hooks/useSendFormData";
 import useFileUpload from "../../hooks/useFileUpload";
 import useProcessingDisplay from "../../hooks/useProcessingDisplay";
 
-function Home({ setModalShow }) {
+function Home({ setModalShow, setErrorModalShow, error, setError }) {
   const { clearInfo, setClearInfo, isLoggedIn } = useAuthContext();
 
   const [data, setData] = useState(null);
@@ -25,8 +25,15 @@ function Home({ setModalShow }) {
   const [frames, setFrames] = useState("25");
   const [processingReady, setProcessingReady] = useState(false);
   const [uploadId, setUploadId] = useState(null);
-  const [error, setError] = useState(null);
   const [tryNowClick, setTryNowClick] = useState(false);
+
+  useEffect(() => {
+    if (error) {
+      setErrorModalShow(true);
+    } else if (!error) {
+      setErrorModalShow(false);
+    }
+  }, [error]);
 
   const { sendFormData, estimatedSeconds, summaryData, songCount, songData } =
     useSendFormData(

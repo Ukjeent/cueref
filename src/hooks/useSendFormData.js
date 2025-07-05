@@ -79,7 +79,7 @@ function useSendFormData(
         }
       })
       .catch((error) => {
-        setError(error);
+        setError(error.message);
         setIsProcessing(false);
         console.error("Upload failed:", error);
       });
