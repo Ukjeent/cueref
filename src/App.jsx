@@ -7,6 +7,7 @@ import { useAuthContext } from "./contexts/AuthContext";
 
 import Home from "./components/pages/Home";
 import About from "./components/pages/About";
+import MyAccount from "./components/pages/MyAccount";
 import TermsAndConditions from "./components/pages/TermsAndConditions";
 
 import Header from "./components/ui/Header";
@@ -17,7 +18,7 @@ import ErrorModal from "./components/ui/ErrorModal";
 function App() {
   const [error, setError] = useState("");
   const [modalShow, setModalShow] = useState(false);
-  const [errorModalShow, setErrorModalShow] = useState(true);
+  const [errorModalShow, setErrorModalShow] = useState(false);
 
   const handleLoginClick = () => setModalShow(true);
 
@@ -37,7 +38,12 @@ function App() {
           }
         />
         <Route path="/about" element={<About />} />
-        <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
+        <Route
+          path="/myaccount"
+          element={<MyAccount handleLoginClick={handleLoginClick} />}
+        />
+
+        <Route path="/termsandconditions" element={<TermsAndConditions />} />
       </Routes>
       <FooterSection handleLoginClick={handleLoginClick} />
       <LoginModal modalShow={modalShow} setModalShow={setModalShow} />

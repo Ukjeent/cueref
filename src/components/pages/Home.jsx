@@ -72,7 +72,7 @@ function Home({ setModalShow, setErrorModalShow, error, setError }) {
       processingReady
     );
 
-  const handleLoginClick = () => setModalShow(true);
+  // const handleLoginClick = () => setModalShow(true);
 
   const handleShowUploadSectionClick = () => {
     if (!isLoggedIn) {

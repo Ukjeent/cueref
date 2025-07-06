@@ -21,15 +21,12 @@ function Header({ handleLoginClick }) {
         <Navbar.Offcanvas id="basic-navbar-nav" placement="end">
           <Offcanvas.Header closeButton></Offcanvas.Header>
           <Nav className="me-auto">
-            {isLoggedIn && userEmail !== "" ? (
-              <Nav.Link className="nav-link-info">User: {userEmail}</Nav.Link>
-            ) : (
-              ""
-            )}
             {!isLoggedIn ? (
               <Nav.Link onClick={handleLoginClick}>Login</Nav.Link>
             ) : (
-              <Nav.Link onClick={() => userLogout()}>Logout</Nav.Link>
+              <Nav.Link as={Link} to="/myaccount">
+                My Account
+              </Nav.Link>
             )}
           </Nav>
         </Navbar.Offcanvas>

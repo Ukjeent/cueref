@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
+      console.log("token");
       validateAndGetUser(token);
     }
   }, []);
@@ -48,7 +49,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("token", authToken);
   };
 
-  const userLogout = () => {
+  const userLogout = (callback) => {
     setUser(null);
     setToken(null);
     setUserEmail(null);
@@ -56,6 +57,8 @@ export const AuthProvider = ({ children }) => {
     setClearInfo(true);
     localStorage.removeItem("email");
     localStorage.removeItem("token");
+
+    if (callback) callback();
   };
 
   return (

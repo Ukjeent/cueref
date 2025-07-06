@@ -21,7 +21,7 @@ function FooterSection({ handleLoginClick }) {
               </li>
               <li>
                 {isLoggedIn && userEmail !== "" ? (
-                  <span className="nav-link-info">My pages (Coming soon)</span>
+                  <Link to="/myaccount">My Account</Link>
                 ) : !isLoggedIn ? (
                   <span onClick={handleLoginClick}>Login</span>
                 ) : (
@@ -29,7 +29,7 @@ function FooterSection({ handleLoginClick }) {
                 )}
               </li>
               <li>
-                <Link to="/TermsAndConditions">Terms & Conditions</Link>
+                <Link to="/termsandconditions">Terms & Conditions</Link>
               </li>
             </ul>
           </div>
