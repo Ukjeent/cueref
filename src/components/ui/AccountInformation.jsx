@@ -79,7 +79,7 @@ function AccountInformation() {
         </div>
       </div>
 
-      <div className="form-section update-password-section">
+      {/* <div className="form-section update-password-section">
         <div className="form-group">
           <label className="label" htmlFor="new-password">
             Update Password
@@ -108,7 +108,7 @@ function AccountInformation() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="form-section account-type">
         <div className="form-group">
