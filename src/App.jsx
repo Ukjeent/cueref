@@ -9,6 +9,7 @@ import Home from "./components/pages/Home";
 import About from "./components/pages/About";
 import MyAccount from "./components/pages/MyAccount";
 import TermsAndConditions from "./components/pages/TermsAndConditions";
+import ResetPassword from "./components/pages/ResetPassword";
 
 import Header from "./components/ui/Header";
 import FooterSection from "./components/ui/FooterSection";
@@ -19,8 +20,13 @@ function App() {
   const [error, setError] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [errorModalShow, setErrorModalShow] = useState(false);
+  const { clearInfo, setClearInfo, closeModal, setCloseModal, isLoggedIn } =
+    useAuthContext();
 
-  const handleLoginClick = () => setModalShow(true);
+  const handleLoginClick = () => {
+    setCloseModal(false);
+    setModalShow(true);
+  };
 
   return (
     <div className="app-container">
@@ -44,6 +50,7 @@ function App() {
         />
 
         <Route path="/termsandconditions" element={<TermsAndConditions />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
       </Routes>
       <FooterSection handleLoginClick={handleLoginClick} />
       <LoginModal modalShow={modalShow} setModalShow={setModalShow} />

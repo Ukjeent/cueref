@@ -4,8 +4,14 @@ import { useNavigate } from "react-router-dom";
 
 function AccountInformation() {
   const navigate = useNavigate();
-  const { userEmail, clearInfo, setClearInfo, isLoggedIn, userLogout } =
-    useAuthContext();
+  const {
+    userEmail,
+    accountType,
+    clearInfo,
+    setClearInfo,
+    isLoggedIn,
+    userLogout,
+  } = useAuthContext();
 
   const handleLogout = () => {
     userLogout(() => navigate("/"));
@@ -32,10 +38,10 @@ function AccountInformation() {
   };
 
   const [formData, setFormData] = useState({
-    email: "name@email.com",
+    email: userEmail,
     currentPassword: "secretpassword",
     newPassword: "",
-    accountType: "Beta",
+    accountType: accountType,
   });
 
   return (
@@ -66,14 +72,14 @@ function AccountInformation() {
             </div> */}
             <div className="form-group">
               <div className="account-type-value">
-                {userEmail ? userEmail : ""}
+                {formData.email ? formData.email : ""}
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* <div className="form-section update-password-section">
+      <div className="form-section update-password-section">
         <div className="form-group">
           <label className="label" htmlFor="new-password">
             Update Password
@@ -102,12 +108,17 @@ function AccountInformation() {
             </button>
           </div>
         </div>
-      </div> */}
+      </div>
 
       <div className="form-section account-type">
         <div className="form-group">
           <label className="label">Account type</label>
-          <div className="account-type-value">{formData.accountType}</div>
+          <div
+            style={{ textTransform: "capitalize" }}
+            className="account-type-value"
+          >
+            {formData.accountType}
+          </div>
         </div>
       </div>
       <div>

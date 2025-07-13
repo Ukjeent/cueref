@@ -8,18 +8,33 @@ import useAuth from "../../hooks/useAuth";
 import { useAuthContext } from "../../contexts/AuthContext";
 
 function LoginModal({ modalShow, setModalShow }) {
-  const { register, login, loading, error, wrongPassword } = useAuth();
+  const {
+    register,
+    login,
+    sendResetEmail,
+    loading,
+    apiResponse,
+    setApiResponse,
+    wrongPassword,
+  } = useAuth();
 
-  const { clearInfo, setClearInfo, isLoggedIn } = useAuthContext();
+  const { clearInfo, setClearInfo, closeModal, isLoggedIn } = useAuthContext();
 
   const [createUserView, setCreateUserView] = useState(false);
+  const [forgotPasswordView, setForgotPasswordView] = useState(false);
   const [loginEmail, setLoginEmail] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailTouched, setEmailTouched] = useState(false);
   const [registerEmailTouched, setRegisterEmailTouched] = useState(false);
+  const [loginValidationError, setLoginValidationError] = useState(false);
+  const [registerValidationError, setRegisterValidationError] = useState(false);
+  const [forgotValidationError, setForgotValidationError] = useState(false);
+  const [forgotPasswordEmailTouched, setForgotPasswordEmailTouched] =
+    useState(false);
   const [registerPasswordTouched, setRegisterPasswordTouched] = useState(false);
   const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
 
@@ -30,17 +45,27 @@ function LoginModal({ modalShow, setModalShow }) {
       setCreateUserView(false);
       setLoginEmail("");
       setRegisterEmail("");
+      setForgotPasswordEmail("");
       setLoginPassword("");
       setRegisterPassword("");
       setConfirmPassword("");
       setEmailTouched(false);
       setRegisterEmailTouched(false);
+      setForgotPasswordEmailTouched(false);
       setRegisterPasswordTouched(false);
       setConfirmPasswordTouched(false);
-      setModalShow(false);
+      setLoginValidationError(false);
+      setRegisterValidationError(false);
       setClearInfo(false);
     }
-  }, [clearInfo]);
+    if (closeModal) {
+      setModalShow(false);
+    }
+    if (!modalShow) {
+      setCreateUserView(false);
+      setForgotPasswordView(false);
+    }
+  }, [clearInfo, closeModal, modalShow]);
 
   const clearSensitiveInfo = () => {
     setLoginPassword("");
@@ -48,21 +73,67 @@ function LoginModal({ modalShow, setModalShow }) {
     setConfirmPassword("");
     setEmailTouched(false);
     setRegisterEmailTouched(false);
+    setForgotPasswordEmailTouched(false);
     setRegisterPasswordTouched(false);
     setConfirmPasswordTouched(false);
+    setLoginValidationError(false);
+    setRegisterValidationError(false);
+    setApiResponse(false);
   };
 
-  const handleClose = () => setModalShow(false);
+  const handleClose = () => {
+    setModalShow(false);
+    clearSensitiveInfo();
+  };
+
+  const validateAndLogin = () => {
+    if (emailPattern.test(loginEmail) && loginPassword !== "") {
+      login(loginEmail, loginPassword);
+    } else {
+      setLoginValidationError(true);
+    }
+  };
+
+  const validateAndRegister = () => {
+    if (
+      emailPattern.test(registerEmail) &&
+      registerPassword !== "" &&
+      confirmPassword !== "" &&
+      registerPassword === confirmPassword
+    ) {
+      register(registerEmail, registerPassword);
+    } else {
+      setRegisterValidationError(true);
+    }
+  };
+
+  const validateAndReset = () => {
+    if (emailPattern.test(forgotPasswordEmail)) {
+      sendResetEmail(forgotPasswordEmail);
+      console.log(forgotPasswordEmail);
+    } else {
+      setForgotValidationError(true);
+    }
+  };
 
   const handleCreateUserClick = () => {
     clearSensitiveInfo();
     setCreateUserView(true);
     setRegisterEmail(loginEmail);
   };
-  const handleBackToLoginClick = () => {
+
+  const handleBackToLoginClick = (createUser) => {
     clearSensitiveInfo();
-    setCreateUserView(false);
-    setLoginEmail(registerEmail);
+    createUser ? setCreateUserView(false) : setForgotPasswordView(false);
+    createUser
+      ? setLoginEmail(registerEmail)
+      : setLoginEmail(forgotPasswordEmail);
+  };
+
+  const handleForgotPasswordClick = () => {
+    clearSensitiveInfo();
+    setForgotPasswordView(true);
+    setForgotPasswordEmail(loginEmail);
   };
 
   return (
@@ -76,7 +147,11 @@ function LoginModal({ modalShow, setModalShow }) {
     >
       <Modal.Header closeButton onClick={handleClose}>
         <Modal.Title id="contained-modal-title-vcenter">
-          {createUserView ? "Create account" : "Login"}
+          {createUserView
+            ? "Create account"
+            : forgotPasswordView
+            ? "Reset password"
+            : "Login"}
         </Modal.Title>
       </Modal.Header>
 
@@ -86,7 +161,11 @@ function LoginModal({ modalShow, setModalShow }) {
             createUserView ? "register-active" : "login-active"
           }`}
         >
-          <div className={`login-view ${createUserView ? "hide" : "show"}`}>
+          {/* ################ */}
+          {/* Login View Start */}
+          {/* ################ */}
+
+          <div className={`login-view`}>
             <div className="modal-form-wrapper">
               <Form noValidate>
                 <Form.Group className="mb-3" controlId="loginEmail">
@@ -94,11 +173,16 @@ function LoginModal({ modalShow, setModalShow }) {
                   <Form.Control
                     type="email"
                     value={loginEmail}
-                    onChange={(e) => setLoginEmail(e.target.value)}
+                    onChange={(e) => {
+                      setLoginEmail(e.target.value);
+                      setLoginValidationError(false);
+                      setEmailTouched(false);
+                    }}
                     onBlur={() => setEmailTouched(true)}
+                    disabled={loading}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        login(loginEmail, loginPassword);
+                        validateAndLogin();
                       }
                     }}
                     className={
@@ -111,8 +195,7 @@ function LoginModal({ modalShow, setModalShow }) {
                   />
                   <p
                     className={`form-error-info ${
-                      emailTouched &&
-                      loginEmail !== "" &&
+                      (emailTouched || loginValidationError) &&
                       !emailPattern.test(loginEmail)
                         ? "form-error-info show"
                         : "form-error-info"
@@ -125,21 +208,32 @@ function LoginModal({ modalShow, setModalShow }) {
                   <Form.Label>Password</Form.Label>
                   <Form.Control
                     value={loginPassword}
-                    onChange={(e) => setLoginPassword(e.target.value)}
+                    disabled={loading}
+                    onChange={(e) => {
+                      setLoginPassword(e.target.value);
+                      setLoginValidationError(false);
+                    }}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        login(loginEmail, loginPassword);
+                        validateAndLogin();
                       }
                     }}
                     type="password"
                   />
-                  <p style={{ color: "red" }}>
-                    {wrongPassword ? "Wrong email or password" : ""}
+                  <p
+                    className={`form-error-info ${
+                      loginValidationError && loginPassword === ""
+                        ? "form-error-info show"
+                        : "form-error-info"
+                    }`}
+                  >
+                    Password cannot be empty
                   </p>
                 </Form.Group>
 
                 <Button
-                  onClick={() => login(loginEmail, loginPassword)}
+                  disabled={!loginEmail || !loginPassword || loading}
+                  onClick={validateAndLogin}
                   className={"button"}
                   id="login-button"
                 >
@@ -148,12 +242,23 @@ function LoginModal({ modalShow, setModalShow }) {
                     {loading && <div className="loader-spin"></div>}
                   </div>
                 </Button>
-
-                <a className="forgot-password-link">Forgot your password?</a>
+                <p
+                  className={`form-response-info ${apiResponse ? "show" : ""}`}
+                >
+                  {apiResponse}
+                </p>
+                <a
+                  disabled={loading}
+                  onClick={() => handleForgotPasswordClick()}
+                  className="forgot-password-link"
+                >
+                  Forgot your password?
+                </a>
               </Form>
               <div className="create-account-wrapper">
                 <button
                   onClick={handleCreateUserClick}
+                  disabled={loading}
                   className="create-account-button"
                 >
                   Create an account
@@ -161,6 +266,14 @@ function LoginModal({ modalShow, setModalShow }) {
               </div>
             </div>
           </div>
+
+          {/* ############## */}
+          {/* Login View End */}
+          {/* ############## */}
+
+          {/* ###################### */}
+          {/* Create User View Start */}
+          {/* ###################### */}
 
           <div
             className={`create-user-view ${createUserView ? "show" : "hide"}`}
@@ -172,11 +285,16 @@ function LoginModal({ modalShow, setModalShow }) {
                   <Form.Control
                     type="email"
                     value={registerEmail}
-                    onChange={(e) => setRegisterEmail(e.target.value)}
+                    disabled={loading}
+                    onChange={(e) => {
+                      setRegisterEmail(e.target.value);
+                      setRegisterValidationError(false);
+                      setRegisterEmailTouched(false);
+                    }}
                     onBlur={() => setRegisterEmailTouched(true)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        register(registerEmail, registerPassword);
+                        validateAndRegister();
                       }
                     }}
                     className={
@@ -189,8 +307,7 @@ function LoginModal({ modalShow, setModalShow }) {
                   />
                   <p
                     className={`form-error-info ${
-                      registerEmailTouched &&
-                      registerEmail !== "" &&
+                      (registerEmailTouched || registerValidationError) &&
                       !emailPattern.test(registerEmail)
                         ? "form-error-info show"
                         : "form-error-info"
@@ -204,11 +321,16 @@ function LoginModal({ modalShow, setModalShow }) {
                   <Form.Control
                     type="password"
                     value={registerPassword}
-                    onChange={(e) => setRegisterPassword(e.target.value)}
+                    disabled={loading}
+                    onChange={(e) => {
+                      setRegisterPassword(e.target.value);
+                      setRegisterValidationError(false);
+                      setRegisterPasswordTouched(false);
+                    }}
                     onBlur={() => setRegisterPasswordTouched(true)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        register(registerEmail, registerPassword);
+                        validateAndRegister();
                       }
                     }}
                     className={
@@ -221,8 +343,7 @@ function LoginModal({ modalShow, setModalShow }) {
                   />
                   <p
                     className={`form-error-info ${
-                      registerPasswordTouched &&
-                      registerPassword.length > 0 &&
+                      (registerPasswordTouched || registerValidationError) &&
                       registerPassword.length < 8
                         ? "form-error-info show"
                         : "form-error-info"
@@ -238,18 +359,23 @@ function LoginModal({ modalShow, setModalShow }) {
                   <Form.Label>Retype password</Form.Label>
                   <Form.Control
                     type="password"
+                    disabled={loading}
                     value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={(e) => {
+                      setConfirmPassword(e.target.value);
+                      setRegisterValidationError(false);
+                      setConfirmPasswordTouched(false);
+                    }}
                     onBlur={() => setConfirmPasswordTouched(true)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        register(registerEmail, registerPassword);
+                        validateAndRegister();
                       }
                     }}
                     className={
                       confirmPassword === ""
                         ? ""
-                        : registerPassword.length >= 8 &&
+                        : confirmPassword.length >= 8 &&
                           registerPassword === confirmPassword
                         ? "is-valid"
                         : "is-invalid"
@@ -257,9 +383,9 @@ function LoginModal({ modalShow, setModalShow }) {
                   />
                   <p
                     className={`form-error-info ${
-                      confirmPasswordTouched &&
-                      registerPassword.length >= 8 &&
+                      (confirmPasswordTouched || registerValidationError) &&
                       confirmPassword.length >= 8 &&
+                      registerPassword.length >= 8 &&
                       registerPassword !== confirmPassword
                         ? "form-error-info show"
                         : "form-error-info"
@@ -270,7 +396,13 @@ function LoginModal({ modalShow, setModalShow }) {
                 </Form.Group>
 
                 <Button
-                  onClick={() => register(registerEmail, registerPassword)}
+                  disabled={
+                    !registerEmail ||
+                    !registerPassword ||
+                    !confirmPassword ||
+                    loading
+                  }
+                  onClick={validateAndRegister}
                   className={"button"}
                   id="register-button"
                 >
@@ -279,10 +411,16 @@ function LoginModal({ modalShow, setModalShow }) {
                     {loading && <div className="loader-spin"></div>}
                   </div>
                 </Button>
+                <p
+                  className={`form-response-info ${apiResponse ? "show" : ""}`}
+                >
+                  {apiResponse}
+                </p>
               </Form>
               <div className="create-account-wrapper">
                 <button
-                  onClick={() => handleBackToLoginClick()}
+                  disabled={loading}
+                  onClick={() => handleBackToLoginClick(true)}
                   className="create-account-button"
                 >
                   Go back to login
@@ -290,6 +428,92 @@ function LoginModal({ modalShow, setModalShow }) {
               </div>
             </div>
           </div>
+
+          {/* #################### */}
+          {/* Create User View End */}
+          {/* #################### */}
+
+          {/* ########################## */}
+          {/* Forgot password View Start */}
+          {/* ########################## */}
+
+          <div
+            className={`forgot-password-view ${
+              forgotPasswordView ? "show" : "hide"
+            }`}
+          >
+            <div className="modal-form-wrapper">
+              <Form noValidate>
+                <Form.Group className="mb-3" controlId="forgotPasswordEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    disabled={loading}
+                    value={forgotPasswordEmail}
+                    onChange={(e) => {
+                      setForgotPasswordEmail(e.target.value);
+                      setForgotPasswordEmailTouched(false);
+                      setForgotValidationError(false);
+                    }}
+                    onBlur={() => setForgotPasswordEmailTouched(true)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        validateAndReset();
+                      }
+                    }}
+                    className={
+                      forgotPasswordEmail === ""
+                        ? ""
+                        : emailPattern.test(forgotPasswordEmail)
+                        ? "is-valid"
+                        : "is-invalid"
+                    }
+                  />
+                  <p
+                    className={`form-error-info ${
+                      forgotPasswordEmailTouched &&
+                      forgotPasswordEmail !== "" &&
+                      !emailPattern.test(forgotPasswordEmail)
+                        ? "form-error-info show"
+                        : "form-error-info"
+                    }`}
+                  >
+                    Please enter a valid email address
+                  </p>
+                </Form.Group>
+
+                <Button
+                  disabled={!forgotPasswordEmail || loading}
+                  onClick={validateAndReset}
+                  className={"button"}
+                  id="forgot-email-button"
+                >
+                  <div className="forgot-text-wrap">
+                    <div>Reset password</div>
+                    {loading && <div className="loader-spin"></div>}
+                  </div>
+                </Button>
+                <p
+                  className={`form-response-info ${apiResponse ? "show" : ""}`}
+                >
+                  {apiResponse}
+                </p>
+              </Form>
+              <div className="forgot-email-wrapper">
+                <button
+                  disabled={loading}
+                  onClick={() => handleBackToLoginClick(false)}
+                  className="forgot-email-button"
+                >
+                  Go back to login
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* ######################## */}
+          {/* Forgot password View End */}
+          {/* ######################## */}
         </div>
       </Modal.Body>
       <Modal.Footer>

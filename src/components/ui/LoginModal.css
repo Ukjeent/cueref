@@ -35,18 +35,21 @@
 }
 
 #login-button,
-#register-button {
+#register-button,
+#forgot-email-button {
   width: 100%;
   margin-bottom: 2px;
 }
 
-.create-account-wrapper {
+.create-account-wrapper,
+.forgot-email-wrapper {
   padding-top: 1rem;
   display: flex;
   justify-content: center;
 }
 
-.create-account-button {
+.create-account-button,
+.forgot-email-button {
   text-align: center;
   padding: 5px 10px;
   border-radius: 4px;
@@ -84,21 +87,26 @@
   min-height: 360px;
 }
 
+.login-view,
+.create-user-view {
+  padding-top: 20px;
+}
+
 .create-user-view,
-.login-view {
+.forgot-password-view {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   transition: opacity 0.3s ease, transform 1s ease;
-  transform: translateY(-350px);
+  transform: translateY(-400px);
   opacity: 0;
   visibility: hidden;
   background-color: white; /* Solid background */
 }
 
 .create-user-view.show,
-.login-view.show {
+.forgot-password-view.show {
   opacity: 1;
   transform: translateY(0);
   visibility: visible;
@@ -106,15 +114,20 @@
 }
 
 .create-user-view.hide,
-.login-view.hide {
+.forgot-password-view.hide {
   opacity: 1;
   visibility: visible;
   z-index: 1;
-  transition: opacity 0.3s ease 0.6s, transform 0.9s ease 0.9s; /* Delay the hide transition */
+  transition: opacity 0.3s ease, transform 0.9s ease; /* Delay the hide transition */
 }
 
 .login-view .modal-form-wrapper {
   padding-bottom: 70px;
+}
+
+.forgot-password-view {
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 .valid {
@@ -125,7 +138,8 @@
   color: red;
 }
 
-.form-error-info {
+.form-error-info,
+.error-info {
   opacity: 0;
   transition: opacity 0.2s ease;
   margin: 0px 0px -15px 0px;
@@ -135,12 +149,31 @@
   color: red;
 }
 
-.form-error-info.show {
+.form-response-info {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  margin: 0px 0px -15px 0px;
+  padding: 0;
+  font-size: 14px;
+  font-style: italic;
+  padding-top: 5px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.form-error-info.show,
+.error-info.show,
+.form-response-info.show {
   opacity: 1;
 }
 
+.error-info.show {
+  padding-bottom: 15px;
+}
+
 .login-text-wrap,
-.register-text-wrap {
+.register-text-wrap,
+.forgot-text-wrap {
   position: relative;
   display: flex;
   justify-content: center;
@@ -162,6 +195,18 @@
   -webkit-mask-composite: source-out;
   mask-composite: subtract;
   animation: l3 1s infinite linear;
+}
+
+.loader-spin.reset {
+  right: 75px;
+}
+
+.forgot-password-link {
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  background-color: rgba(251, 113, 133, 0.5);
 }
 
 @keyframes l3 {

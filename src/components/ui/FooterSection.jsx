@@ -38,7 +38,7 @@ function FooterSection({ handleLoginClick }) {
             <h3>Contact us</h3>
             <ul>
               <li>
-                <a href="mailto:info@cueref.com">bjorn@bjrn.dev</a>
+                <a href="mailto:info@cueref.com">info@cueref.com</a>
               </li>
               <li>Stockholm, Sweden</li>
             </ul>

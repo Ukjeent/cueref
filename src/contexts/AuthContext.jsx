@@ -6,14 +6,17 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userEmail, setUserEmail] = useState(localStorage.getItem("email"));
+  const [accountType, setAccountType] = useState(
+    localStorage.getItem("accountType")
+  );
   const [userLastLogin, setUserLastLogin] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [isLoggedIn, setIsLoggedIn] = useState(!!token);
   const [clearInfo, setClearInfo] = useState(false);
+  const [closeModal, setCloseModal] = useState(false);
 
   useEffect(() => {
     if (token) {
-      console.log("token");
       validateAndGetUser(token);
     }
   }, []);
@@ -31,6 +34,8 @@ export const AuthProvider = ({ children }) => {
         setIsLoggedIn(true);
         setUser(userData["user_id"]);
         setUserEmail(userData["email"]);
+        setAccountType(userData["user_type"]);
+        localStorage.setItem("accountType", userData["user_type"]);
         localStorage.setItem("email", userData["email"]);
       } else {
         userLogout();
@@ -55,6 +60,7 @@ export const AuthProvider = ({ children }) => {
     setUserEmail(null);
     setIsLoggedIn(false);
     setClearInfo(true);
+    setCloseModal(true);
     localStorage.removeItem("email");
     localStorage.removeItem("token");
 
@@ -71,11 +77,14 @@ export const AuthProvider = ({ children }) => {
         token,
         clearInfo,
         setClearInfo,
+        closeModal,
+        setCloseModal,
         isLoggedIn,
         setIsLoggedIn,
         userLogin,
         userLogout,
         validateAndGetUser,
+        accountType,
       }}
     >
       {children}

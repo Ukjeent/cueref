@@ -137,7 +137,7 @@ function TermsAndConditions() {
         <h2>6. Contact Information</h2>
         <p>For questions about these Terms or CueRef:</p>
         <ul>
-          <li>Email: bjorn@bjrn.dev</li>
+          <li>Email: info@cueref.com</li>
           <li>Address: Stockholm, Sweden</li>
         </ul>
 

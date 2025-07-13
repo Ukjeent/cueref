@@ -24,16 +24,17 @@ main {
   border-radius: 4px;
   transition: opacity 0.4s ease-in-out;
   transition: background-color 0.4s ease-in-out;
-
 }
 
-button[disabled],
-select[disabled],
-.custom-file-label.disabled {
+.btn.button:disabled,
+.btn.button[disabled] {
   cursor: not-allowed;
+  background-color: #d1d5db;
+
+  pointer-events: auto !important;
 }
 
-.button:hover {
+.button:hover:not(:disabled) {
   background-color: rgba(251, 113, 133, 0.5);
 }
 
