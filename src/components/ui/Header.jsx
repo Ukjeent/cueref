@@ -13,24 +13,21 @@ function Header({ handleLoginClick }) {
   const { user, userEmail, isLoggedIn, userLogout } = useAuthContext();
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar className="bg-body-tertiary">
       <Container fluid>
         <Navbar.Brand as={Link} to="/">
           <img src={logo} alt="CueRef Logo" style={{ height: "60px" }} />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Offcanvas id="basic-navbar-nav" placement="end">
-          <Offcanvas.Header closeButton></Offcanvas.Header>
-          <Nav className="me-auto">
-            {!isLoggedIn ? (
-              <Nav.Link onClick={handleLoginClick}>Login</Nav.Link>
-            ) : (
-              <Nav.Link as={Link} to="/myaccount">
-                My Account
-              </Nav.Link>
-            )}
-          </Nav>
-        </Navbar.Offcanvas>
+
+        <Nav className="ms-auto">
+          {!isLoggedIn ? (
+            <Nav.Link onClick={handleLoginClick}>Login</Nav.Link>
+          ) : (
+            <Nav.Link as={Link} to="/myaccount">
+              My Account
+            </Nav.Link>
+          )}
+        </Nav>
       </Container>
     </Navbar>
   );
