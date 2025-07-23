@@ -13,7 +13,6 @@ const MyAccount = () => {
 
   const handleNavClick = (navItem) => {
     setActiveNav(navItem);
-    console.log("Navigating to:", navItem);
   };
 
   return (

@@ -1,0 +1,16 @@
+.update-password-section {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.reset-email-container p {
+  margin-top: -20px;
+  font-size: 14px;
+  color: #555;
+}
+
+.underlined-email {
+  text-decoration: underline;
+  margin-left: 4px;
+}

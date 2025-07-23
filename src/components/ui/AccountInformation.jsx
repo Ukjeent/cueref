@@ -1,5 +1,8 @@
+import "./AccountInformation.css";
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
+import useAuth from "../../hooks/useAuth";
+
 import { useNavigate } from "react-router-dom";
 
 function AccountInformation() {
@@ -13,36 +16,18 @@ function AccountInformation() {
     userLogout,
   } = useAuthContext();
 
+  const { sendResetEmail } = useAuth();
+
+  const [resetEmailSent, setResetEmailSent] = useState(false);
+
   const handleLogout = () => {
     userLogout(() => navigate("/"));
   };
 
-  const [showPassword, setShowPassword] = useState({
-    current: false,
-    new: false,
-  });
-
-  const togglePasswordVisibility = (field) => {
-    setShowPassword((prev) => ({
-      ...prev,
-      [field]: !prev[field],
-    }));
+  const handleResetPassword = () => {
+    sendResetEmail(userEmail ? userEmail : "");
+    setResetEmailSent(true);
   };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const [formData, setFormData] = useState({
-    email: userEmail,
-    currentPassword: "secretpassword",
-    newPassword: "",
-    accountType: accountType,
-  });
 
   return (
     <div>
@@ -57,7 +42,7 @@ function AccountInformation() {
             </label>
             <div className="form-group">
               <div className="account-type-value">
-                {formData.email ? formData.email : ""}
+                {userEmail ? userEmail : ""}
               </div>
             </div>
           </div>
@@ -75,11 +60,27 @@ function AccountInformation() {
           </div>
         </div>
       </div> */}
-      <div>
-        <button className="logout-btn" onClick={() => handleLogout()}>
-          {" "}
-          Logout
-        </button>
+      <div className="reset-email-container">
+        <div className="form-section update-password-section">
+          <div>
+            <button className="logout-btn" onClick={handleResetPassword}>
+              {" "}
+              Reset Password
+            </button>
+          </div>
+          <div>
+            <button className="logout-btn" onClick={() => handleLogout()}>
+              {" "}
+              Logout
+            </button>
+          </div>
+        </div>
+        {resetEmailSent ? (
+          <p>
+            Email sent to:
+            <span className="underlined-email">{userEmail}</span>
+          </p>
+        ) : null}
       </div>
     </div>
   );
