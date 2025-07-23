@@ -37,6 +37,7 @@ function App() {
           element={
             <Home
               setModalShow={setModalShow}
+              setCloseModal={setCloseModal}
               setErrorModalShow={setErrorModalShow}
               error={error}
               setError={setError}

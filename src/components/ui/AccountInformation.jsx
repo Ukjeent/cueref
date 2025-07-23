@@ -55,21 +55,6 @@ function AccountInformation() {
             <label className="label" htmlFor="email">
               Email
             </label>
-            {/* <div className="email-update-row" style={{ flex: 1 }}>
-              <input
-                className="input"
-                type="email"
-                id="email"
-                name="email"
-                value={userEmail ? userEmail : ""}
-                // {userEmail ? value={userEmail} : ''}
-                onChange={handleInputChange}
-                readOnly
-              />
-              <button className="save-btn" type="button">
-                Update
-              </button>
-            </div> */}
             <div className="form-group">
               <div className="account-type-value">
                 {formData.email ? formData.email : ""}
@@ -78,38 +63,7 @@ function AccountInformation() {
           </div>
         </div>
       </div>
-
-      {/* <div className="form-section update-password-section">
-        <div className="form-group">
-          <label className="label" htmlFor="new-password">
-            Update Password
-          </label>
-          <div className="password-update-row">
-            <div className="password-input-container" style={{ flex: 1 }}>
-              <input
-                className="input"
-                type={showPassword.new ? "text" : "password"}
-                id="new-password"
-                name="newPassword"
-                value={formData.newPassword}
-                onChange={handleInputChange}
-                placeholder="Enter new password"
-              />
-              <button
-                className="password-toggle"
-                type="button"
-                onClick={() => togglePasswordVisibility("new")}
-              >
-                {showPassword.new ? "Hide" : "Show"}
-              </button>
-            </div>
-            <button className="save-btn" type="button">
-              Update
-            </button>
-          </div>
-        </div>
-      </div> */}
-
+      {/* 
       <div className="form-section account-type">
         <div className="form-group">
           <label className="label">Account type</label>
@@ -120,7 +74,7 @@ function AccountInformation() {
             {formData.accountType}
           </div>
         </div>
-      </div>
+      </div> */}
       <div>
         <button className="logout-btn" onClick={() => handleLogout()}>
           {" "}

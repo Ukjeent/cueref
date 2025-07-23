@@ -91,3 +91,8 @@ a:hover,
 a:focus {
   text-decoration: underline;
 }
+
+.download-pagination-container {
+  display: flex;
+  justify-content: space-between;
+}

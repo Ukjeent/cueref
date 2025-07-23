@@ -15,7 +15,15 @@ import useSendFormData from "../../hooks/useSendFormData";
 import useFileUpload from "../../hooks/useFileUpload";
 import useProcessingDisplay from "../../hooks/useProcessingDisplay";
 
-function Home({ setModalShow, setErrorModalShow, error, setError }) {
+import PaginationElement from "../ui/Pageination";
+
+function Home({
+  setModalShow,
+  setCloseModal,
+  setErrorModalShow,
+  error,
+  setError,
+}) {
   const { clearInfo, setClearInfo, isLoggedIn } = useAuthContext();
 
   const [data, setData] = useState(null);
@@ -26,6 +34,9 @@ function Home({ setModalShow, setErrorModalShow, error, setError }) {
   const [processingReady, setProcessingReady] = useState(false);
   const [uploadId, setUploadId] = useState(null);
   const [tryNowClick, setTryNowClick] = useState(false);
+  const [pages, setPages] = useState(4);
+  const [active, setActive] = useState(1);
+  const [songRows, setSongRows] = useState(0);
 
   useEffect(() => {
     if (error) {
@@ -35,17 +46,25 @@ function Home({ setModalShow, setErrorModalShow, error, setError }) {
     }
   }, [error]);
 
-  const { sendFormData, estimatedSeconds, summaryData, songCount, songData } =
-    useSendFormData(
-      isProcessing,
-      setIsProcessing,
-      processingReady,
-      setProcessingReady,
-      uploadId,
-      setUploadId,
-      setError,
-      setModalShow
-    );
+  const {
+    sendFormData,
+    estimatedSeconds,
+    summaryData,
+    songCount,
+    songData,
+    fetch_songs,
+  } = useSendFormData(
+    isProcessing,
+    setIsProcessing,
+    processingReady,
+    setProcessingReady,
+    uploadId,
+    setUploadId,
+    setError,
+    setModalShow,
+    setPages,
+    setSongRows
+  );
 
   const uploadConfig = {
     sendFormData,
@@ -76,6 +95,7 @@ function Home({ setModalShow, setErrorModalShow, error, setError }) {
 
   const handleShowUploadSectionClick = () => {
     if (!isLoggedIn) {
+      setCloseModal(false);
       setModalShow(true);
       setTryNowClick(true);
     } else if (isLoggedIn) {
@@ -123,12 +143,26 @@ function Home({ setModalShow, setErrorModalShow, error, setError }) {
             processingReady={processingReady}
           />
           <TableSection songData={songData} processingReady={processingReady} />
-          <DownloadSection
-            uploadId={uploadId}
-            processingReady={processingReady}
-            error={error}
-            setError={setError}
-          />
+          <div className="download-pagination-container">
+            {pages > 1 ? (
+              <PaginationElement
+                pages={pages}
+                active={active}
+                setActive={setActive}
+                uploadId={uploadId}
+                fetch_songs={fetch_songs}
+                songRows={songRows}
+              />
+            ) : (
+              ""
+            )}
+            <DownloadSection
+              uploadId={uploadId}
+              processingReady={processingReady}
+              error={error}
+              setError={setError}
+            />
+          </div>
         </div>
       </div>
       <SupportedLibraries />

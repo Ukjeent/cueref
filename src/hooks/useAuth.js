@@ -65,7 +65,12 @@ function useAuth() {
         if (response.status === 200) {
           setLoading(false);
           const json = await response.json();
-          userLogin(json["user_id"], json["user_email"], json["access_token"]);
+          userLogin(
+            json["user_id"],
+            json["user_email"],
+            // json["user_type"],
+            json["access_token"]
+          );
           setClearInfo(true);
           setCloseModal(true);
         } else if (response.status === 409) {

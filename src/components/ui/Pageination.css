@@ -1,0 +1,22 @@
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 10px 3rem;
+  color: black !important;
+}
+
+a.page-link {
+  color: black;
+}
+
+.pagination .page-item.active .page-link {
+  --bs-pagination-active-bg: rgba(251, 113, 133, 0.8);
+  --bs-pagination-active-border-color: rgba(251, 113, 133, 0.8);
+}
+
+.pagination-info {
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  font-style: italic;
+}

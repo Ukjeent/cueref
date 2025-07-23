@@ -10,7 +10,9 @@ function useSendFormData(
   uploadId,
   setUploadId,
   setError,
-  setModalShow
+  setModalShow,
+  setPages,
+  setSongRows
 ) {
   const { token, userLogout } = useAuthContext();
   const [summaryData, setSummaryData] = useState(null);
@@ -137,13 +139,22 @@ function useSendFormData(
     });
   }
 
-  const fetch_songs = (uploadId) => {
-    fetch(`${apiBase}/songs?upload_id=${uploadId}`)
+  const fetch_songs = (uploadId, page = 1) => {
+    //
+    //
+    // Add pagination support
+    //
+    //
+
+    // fetch(`${apiBase}/songs?upload_id=${uploadId}`)
+    fetch(`${apiBase}/songs?upload_id=${uploadId}&page=${page}`)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        setSongData(data);
+        setPages(Math.ceil(data.total_count / 10));
+        setSongRows(data.total_count);
+        setSongData(data.songs);
       })
       .catch((error) => {
         console.error("Error fetching songs:", error);
@@ -158,6 +169,7 @@ function useSendFormData(
     summaryData,
     songCount,
     songData,
+    fetch_songs,
   };
 }
 export default useSendFormData;

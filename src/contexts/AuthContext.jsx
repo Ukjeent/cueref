@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
         setUser(userData["user_id"]);
         setUserEmail(userData["email"]);
         setAccountType(userData["user_type"]);
-        localStorage.setItem("accountType", userData["user_type"]);
+        // localStorage.setItem("accountType", userData["user_type"]);
         localStorage.setItem("email", userData["email"]);
       } else {
         userLogout();
@@ -63,7 +63,6 @@ export const AuthProvider = ({ children }) => {
     setCloseModal(true);
     localStorage.removeItem("email");
     localStorage.removeItem("token");
-
     if (callback) callback();
   };
 
