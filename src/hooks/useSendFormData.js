@@ -47,8 +47,8 @@ function useSendFormData(
         let maxTimeout = 600000;
         if (data.song_count) {
           setSongCount(data.song_count);
-          const estimatedSeconds = Math.round(data.song_count * 1.5); // Assuming 1.5 seconds per song
-          maxTimeout = estimatedSeconds * 1000;
+          const estimatedSeconds = Math.round(data.song_count * 2); // Assuming 2 seconds per song
+          maxTimeout = estimatedSeconds * 10000;
           setEstimatedSeconds(estimatedSeconds);
         }
 
