@@ -47,7 +47,7 @@ function useSendFormData(
         let maxTimeout = 600000;
         if (data.song_count) {
           setSongCount(data.song_count);
-          const estimatedSeconds = Math.round(data.song_count * 2); // Assuming 2 seconds per song
+          const estimatedSeconds = Math.round(data.song_count * 2.5); // Assuming 2.5 seconds per song
           maxTimeout = estimatedSeconds * 10000;
           setEstimatedSeconds(estimatedSeconds);
         }
@@ -66,6 +66,14 @@ function useSendFormData(
                 console.log("WARNING: Data is null - polling timed out!");
               }
               setSummaryData(result);
+              if (result?.uploadStatus !== "success") {
+                setError(
+                  `<p>The matching rate for this upload is lower than expected. 
+                  Our team has been notified and is investigating the issue.</p>
+                  <p>We will contact you by email as soon as it’s resolved, usually within 48 hours.
+                  Sorry for the inconvenience!</p>`
+                );
+              }
               setProcessingReady(true);
               setIsProcessing(false);
               setUploadId(data.upload_id);

@@ -4,8 +4,11 @@ import Modal from "react-bootstrap/Modal";
 import { useState, useEffect } from "react";
 import logo from "/images/cueref_logo_coral_btn.svg";
 
-function ErrorModal({ error, errorModalShow, setErrorModalShow }) {
-  const handleErrorModalClose = () => setErrorModalShow(false);
+function ErrorModal({ error, setError, errorModalShow, setErrorModalShow }) {
+  const handleErrorModalClose = () => {
+    setErrorModalShow(false);
+    setError("");
+  };
 
   return (
     <Modal
@@ -22,9 +25,15 @@ function ErrorModal({ error, errorModalShow, setErrorModalShow }) {
       </Modal.Header>
 
       <Modal.Body>
-        <p className="error-text">Error message: {error}</p>
-        <p className="error-text">Please try again later </p>
+        <div className="error-text-wrapper">
+          <p className="error-text">Information:</p>
+          <div
+            className="error-html"
+            dangerouslySetInnerHTML={{ __html: error }}
+          />
+        </div>
       </Modal.Body>
+
       <Modal.Footer>
         <img
           className="footer-logo"

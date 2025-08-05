@@ -57,6 +57,7 @@ function App() {
       <LoginModal modalShow={modalShow} setModalShow={setModalShow} />
       <ErrorModal
         error={error}
+        setError={setError}
         errorModalShow={errorModalShow}
         setErrorModalShow={setErrorModalShow}
       />

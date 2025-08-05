@@ -22,6 +22,14 @@ function SummarySection({ processingReady, summaryData }) {
           </p>
           <p className="divider">|</p>
         </div>
+        {summaryData?.uploadStatus !== "success" ? (
+          <div className="summary-divider show-tablet">
+            <p id="errorCuesCount" className="error-cues-count">
+              Error rows: {summaryData?.errorCues || 0}
+            </p>
+            <p className="divider">|</p>
+          </div>
+        ) : null}
         <div className="summary-divider show-small-tablet">
           <p id="libraryCount" className="library-count">
             Libraries: {summaryData?.libraries || 0}
