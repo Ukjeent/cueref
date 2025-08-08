@@ -10,6 +10,7 @@ import About from "./components/pages/About";
 import MyAccount from "./components/pages/MyAccount";
 import TermsAndConditions from "./components/pages/TermsAndConditions";
 import ResetPassword from "./components/pages/ResetPassword";
+import ExportGuide from "./components/pages/ExportGuide";
 
 import Header from "./components/ui/Header";
 import FooterSection from "./components/ui/FooterSection";
@@ -52,6 +53,7 @@ function App() {
 
         <Route path="/termsandconditions" element={<TermsAndConditions />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/exportguide" element={<ExportGuide />} />
       </Routes>
       <FooterSection handleLoginClick={handleLoginClick} />
       <LoginModal modalShow={modalShow} setModalShow={setModalShow} />

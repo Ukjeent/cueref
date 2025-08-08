@@ -407,7 +407,7 @@ function LoginModal({ modalShow, setModalShow }) {
                   id="register-button"
                 >
                   <div className="register-text-wrap">
-                    <div>Save</div>
+                    <div>Create account</div>
                     {loading && <div className="loader-spin"></div>}
                   </div>
                 </Button>

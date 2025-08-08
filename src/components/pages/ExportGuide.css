@@ -1,0 +1,69 @@
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.export-page {
+  padding: 2rem 3rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.export-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.export-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.export-content {
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+.export-content p {
+  margin-bottom: 1.5rem;
+  color: #555;
+}
+
+.export-cta {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #ddd;
+  text-align: center;
+}
+
+.export-cta a {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .export-page {
+    padding: 1rem 2rem;
+  }
+
+  .export-header h1 {
+    font-size: 2rem;
+  }
+
+  .export-content {
+    font-size: 1rem;
+  }
+}
